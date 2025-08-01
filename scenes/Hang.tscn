@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqkopyta44dsp"]
+
+[ext_resource type="Texture2D" uid="uid://cw330o36db81r" path="res://sprites/Hang.png" id="1_ih07j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_01ig2"]
+size = Vector2(5, 2)
+
+[node name="Hang" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ih07j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, 0)
+shape = SubResource("RectangleShape2D_01ig2")
+debug_color = Color(0.741764, 0.431484, 0.474374, 0.42)

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://biyuguwhlm3hr"]
+
+[ext_resource type="Script" uid="uid://r0w2vtp168hy" path="res://scenes/player.gd" id="1_v6fml"]
+[ext_resource type="Texture2D" uid="uid://cx2fi84xsppas" path="res://icon.svg" id="2_3li8b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdl7e"]
+size = Vector2(95, 103)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_v6fml")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3li8b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 11.5)
+shape = SubResource("RectangleShape2D_mdl7e")
+
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="JumpBuffer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="XAcceleration" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpHeight" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]

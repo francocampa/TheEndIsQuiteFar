@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b83sa8yqeshpq"]
+
+[ext_resource type="Script" uid="uid://tp23xlvvlec2" path="res://item_preview.gd" id="1_uwqfx"]
+
+[node name="ItemPreview" type="Node2D"]
+script = ExtResource("1_uwqfx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 2

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://dari8hv2m30as"]
+
+[ext_resource type="PackedScene" uid="uid://begmcokcnptr5" path="res://scenes/Spikes.tscn" id="1_eq8np"]
+[ext_resource type="Script" uid="uid://bspdwewos6fov" path="res://resources/ItemResource.gd" id="1_fe7xm"]
+[ext_resource type="Texture2D" uid="uid://j41k600umhmx" path="res://sprites/Spikes.png" id="2_clcch"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_fe7xm")
+texture = ExtResource("2_clcch")
+name = ""
+type = 1
+scene = ExtResource("1_eq8np")
+metadata/_custom_type_script = "uid://bspdwewos6fov"

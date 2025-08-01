@@ -1,0 +1,99 @@
+[gd_scene load_steps=16 format=3 uid="uid://c5qsko7ldu3qi"]
+
+[ext_resource type="PackedScene" uid="uid://biyuguwhlm3hr" path="res://scenes/Player.tscn" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://qnnvgykbixy2" path="res://scenes/level.gd" id="1_ppgk2"]
+[ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="2_w7c3h"]
+[ext_resource type="PackedScene" uid="uid://dqkopyta44dsp" path="res://scenes/Hang.tscn" id="2_w8frs"]
+[ext_resource type="PackedScene" uid="uid://dm8kwsht4p1xx" path="res://scenes/Portal.tscn" id="4_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://begmcokcnptr5" path="res://scenes/Spikes.tscn" id="6_2r41h"]
+[ext_resource type="PackedScene" uid="uid://cdhhcj4rraj34" path="res://scenes/item_card.tscn" id="7_klq6b"]
+[ext_resource type="Script" uid="uid://bspdwewos6fov" path="res://resources/ItemResource.gd" id="8_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://ysx2ysy2rkvb" path="res://sprites/SquareBlock.png" id="9_8iemx"]
+[ext_resource type="Texture2D" uid="uid://cw330o36db81r" path="res://sprites/Hang.png" id="10_64w2a"]
+[ext_resource type="Texture2D" uid="uid://j41k600umhmx" path="res://sprites/Spikes.png" id="11_fpun6"]
+[ext_resource type="PackedScene" uid="uid://b83sa8yqeshpq" path="res://scenes/Item_preview.tscn" id="12_8iemx"]
+
+[sub_resource type="Resource" id="Resource_8iemx"]
+resource_local_to_scene = true
+script = ExtResource("8_t1rx8")
+texture = ExtResource("9_8iemx")
+name = "Platform"
+type = 0
+scene = ExtResource("2_w7c3h")
+metadata/_custom_type_script = "uid://bspdwewos6fov"
+
+[sub_resource type="Resource" id="Resource_64w2a"]
+resource_local_to_scene = true
+script = ExtResource("8_t1rx8")
+texture = ExtResource("10_64w2a")
+name = "Hang"
+type = 0
+scene = ExtResource("2_w8frs")
+metadata/_custom_type_script = "uid://bspdwewos6fov"
+
+[sub_resource type="Resource" id="Resource_fpun6"]
+resource_local_to_scene = true
+script = ExtResource("8_t1rx8")
+texture = ExtResource("11_fpun6")
+name = ""
+type = 1
+scene = ExtResource("6_2r41h")
+metadata/_custom_type_script = "uid://bspdwewos6fov"
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ppgk2")
+
+[node name="Area2D" parent="." instance=ExtResource("2_w8frs")]
+position = Vector2(317, 158)
+
+[node name="Start" parent="." instance=ExtResource("4_mx8sn")]
+unique_name_in_owner = true
+position = Vector2(17, 140)
+
+[node name="Exit" parent="." instance=ExtResource("4_mx8sn")]
+unique_name_in_owner = true
+position = Vector2(594, 207)
+type = 1
+
+[node name="Player" parent="." instance=ExtResource("1_2q6dc")]
+unique_name_in_owner = true
+position = Vector2(318, 10)
+grav = 20.0
+xAcc = 50.0
+xFricFactor = 0.5
+jumpHeight = -400.0
+minVel = Vector2(-200, -4000)
+maxVel = Vector2(200, 1000)
+lives = 3
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(255, 115)
+platform_size = Vector2(16, 16)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(289, 156)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(354, 251)
+platform_size = Vector2(1200, 40)
+
+[node name="Area2D2" parent="." instance=ExtResource("6_2r41h")]
+position = Vector2(292, 223)
+
+[node name="ItemCards" type="Node2D" parent="."]
+
+[node name="ItemCard1" parent="ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(258, 305)
+item = SubResource("Resource_8iemx")
+
+[node name="ItemCard2" parent="ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(323, 301)
+item = SubResource("Resource_64w2a")
+
+[node name="ItemCard3" parent="ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(391, 307)
+item = SubResource("Resource_fpun6")
+
+[node name="ItemPreview" parent="." instance=ExtResource("12_8iemx")]
