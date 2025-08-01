@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5qsko7ldu3qi"]
+[gd_scene load_steps=18 format=3 uid="uid://c5qsko7ldu3qi"]
 
 [ext_resource type="PackedScene" uid="uid://biyuguwhlm3hr" path="res://scenes/Player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://qnnvgykbixy2" path="res://scenes/level.gd" id="1_ppgk2"]
@@ -12,8 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cw330o36db81r" path="res://sprites/Hang.png" id="10_64w2a"]
 [ext_resource type="Texture2D" uid="uid://j41k600umhmx" path="res://sprites/Spikes.png" id="11_fpun6"]
 [ext_resource type="PackedScene" uid="uid://b83sa8yqeshpq" path="res://scenes/Item_preview.tscn" id="12_8iemx"]
+[ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="13_64w2a"]
 
-[sub_resource type="Resource" id="Resource_8iemx"]
+[sub_resource type="Resource" id="Resource_fpun6"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("9_8iemx")
@@ -22,7 +23,7 @@ type = 0
 scene = ExtResource("2_w7c3h")
 metadata/_custom_type_script = "uid://bspdwewos6fov"
 
-[sub_resource type="Resource" id="Resource_64w2a"]
+[sub_resource type="Resource" id="Resource_wc255"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("10_64w2a")
@@ -31,7 +32,7 @@ type = 0
 scene = ExtResource("2_w8frs")
 metadata/_custom_type_script = "uid://bspdwewos6fov"
 
-[sub_resource type="Resource" id="Resource_fpun6"]
+[sub_resource type="Resource" id="Resource_arp2o"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("11_fpun6")
@@ -39,6 +40,16 @@ name = ""
 type = 1
 scene = ExtResource("6_2r41h")
 metadata/_custom_type_script = "uid://bspdwewos6fov"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux5qa"]
+shader = ExtResource("13_64w2a")
+shader_parameter/resolution = Vector2(680, 340)
+shader_parameter/scan_line_amount = 0.5
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.5
+shader_parameter/vignette_intensity = 0.3
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ppgk2")
@@ -80,15 +91,23 @@ visible = false
 
 [node name="ItemCard1" parent="ItemCards" instance=ExtResource("7_klq6b")]
 position = Vector2(258, 305)
-item = SubResource("Resource_8iemx")
+item = SubResource("Resource_fpun6")
 
 [node name="ItemCard2" parent="ItemCards" instance=ExtResource("7_klq6b")]
 position = Vector2(323, 301)
-item = SubResource("Resource_64w2a")
+item = SubResource("Resource_wc255")
 
 [node name="ItemCard3" parent="ItemCards" instance=ExtResource("7_klq6b")]
 position = Vector2(391, 307)
-item = SubResource("Resource_fpun6")
+item = SubResource("Resource_arp2o")
 
 [node name="ItemPreview" parent="." instance=ExtResource("12_8iemx")]
 visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ux5qa")
+offset_right = 640.0
+offset_bottom = 340.0
+mouse_filter = 1

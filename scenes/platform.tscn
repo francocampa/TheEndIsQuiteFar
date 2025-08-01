@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c82alav3imxhd"]
+[gd_scene load_steps=6 format=3 uid="uid://c82alav3imxhd"]
 
 [ext_resource type="Texture2D" uid="uid://ysx2ysy2rkvb" path="res://sprites/SquareBlock.png" id="1_ba0x2"]
 [ext_resource type="Script" uid="uid://cietac66abnpx" path="res://scenes/platform.gd" id="1_nlgqw"]
@@ -10,6 +10,9 @@ size = Vector2(40, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ba0x2"]
 resource_local_to_scene = true
 size = Vector2(8, 19.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlgqw"]
+size = Vector2(10, 10)
 
 [node name="Platform" type="StaticBody2D"]
 script = ExtResource("1_nlgqw")
@@ -58,3 +61,23 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Resize" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Area2D" parent="Resize"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/TopLeft"]
+shape = SubResource("RectangleShape2D_nlgqw")
+
+[node name="TopRight" type="Area2D" parent="Resize"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/TopRight"]
+shape = SubResource("RectangleShape2D_nlgqw")
+
+[node name="BottomRight" type="Area2D" parent="Resize"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/BottomRight"]
+shape = SubResource("RectangleShape2D_nlgqw")
+
+[node name="BottomLeft" type="Area2D" parent="Resize"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/BottomLeft"]
+shape = SubResource("RectangleShape2D_nlgqw")

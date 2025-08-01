@@ -15,5 +15,5 @@ func set_platform_size(size:Vector2) -> void:
 	$Texture.size = size;
 	var topLeft:Vector2 = -size*0.5;  
 	$Texture.position = topLeft;
-	$"Left corner/CollisionShape2D".position = Vector2(topLeft.x+2,topLeft.y + 3); #Magic 3 pixels :DD
-	$"Right corner/CollisionShape2D".position = Vector2(-topLeft.x-2,topLeft.y + 3) 
+	$"Left corner/CollisionShape2D".position = Vector2(topLeft.x+4,topLeft.y + 3); #Magic 3 pixels :DD
+	$"Right corner/CollisionShape2D".position = Vector2(-topLeft.x-4,topLeft.y + 3) 
