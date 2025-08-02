@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1n7ftyyvpsom"]
+
+[ext_resource type="Script" uid="uid://d0muwsfbv4svc" path="res://scenes/win_screen.gd" id="1_f4f3g"]
+[ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="2_274dy"]
+[ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="3_tad7g"]
+[ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="4_8cwvy"]
+[ext_resource type="Texture2D" uid="uid://wptmqvyou7yr" path="res://sprites/ContinueButton.png" id="5_fpwgu"]
+[ext_resource type="Texture2D" uid="uid://q052ek75w6jx" path="res://sprites/MoneyIcon.png" id="6_274dy"]
+
+[sub_resource type="Gradient" id="Gradient_gijjb"]
+interpolation_mode = 2
+colors = PackedColorArray(0.0646965, 0.0646966, 0.0646965, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g81hb"]
+gradient = SubResource("Gradient_gijjb")
+fill = 1
+fill_from = Vector2(0.481651, 0.509174)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ava1o"]
+shader = ExtResource("3_tad7g")
+shader_parameter/resolution = Vector2(640, 340)
+shader_parameter/scan_line_amount = 0.3
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.219
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.0
+
+[node name="WinScreen" type="Node2D"]
+script = ExtResource("1_f4f3g")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.32859, 0.267368, 0.430063, 1)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+offset_right = 640.0
+offset_bottom = 340.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(371, -32)
+scale = Vector2(22.8269, 15.1794)
+energy = 1.46
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_g81hb")
+
+[node name="Skyline" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.466667)
+offset_left = 115.0
+offset_top = 95.0
+offset_right = 534.0
+offset_bottom = 340.0
+texture = ExtResource("2_274dy")
+expand_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ava1o")
+offset_right = 640.0
+offset_bottom = 340.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 146.0
+offset_top = 5.0
+offset_right = 528.0
+offset_bottom = 123.0
+theme_override_fonts/normal_font = ExtResource("4_8cwvy")
+theme_override_font_sizes/normal_font_size = 30
+text = "You won!!
+The end has arrived :D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="TextureButton" parent="CanvasLayer"]
+offset_left = 260.0
+offset_top = 119.0
+offset_right = 388.0
+offset_bottom = 183.0
+texture_normal = ExtResource("5_fpwgu")
+stretch_mode = 0
+
+[node name="FinalMessage" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 147.0
+offset_top = 232.0
+offset_right = 529.0
+offset_bottom = 350.0
+theme_override_fonts/normal_font = ExtResource("4_8cwvy")
+theme_override_font_sizes/normal_font_size = 20
+text = "You are as poor as were at the start, but now you're dead"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 213.0
+offset_top = 198.0
+offset_right = 253.0
+offset_bottom = 238.0
+texture = ExtResource("6_274dy")
+
+[node name="Money" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 259.0
+offset_top = 198.0
+offset_right = 443.0
+offset_bottom = 245.0
+theme_override_fonts/normal_font = ExtResource("4_8cwvy")
+theme_override_font_sizes/normal_font_size = 20
+text = "1.000.000"
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_exited"]

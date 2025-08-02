@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://c31afjs2oikqe"]
+
+[ext_resource type="Script" uid="uid://c6di83brp4f5w" path="res://scenes/game_over.gd" id="1_88ekj"]
+[ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="2_0winm"]
+[ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="3_j3qfp"]
+[ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="5_8dkuh"]
+[ext_resource type="Texture2D" uid="uid://wptmqvyou7yr" path="res://sprites/ContinueButton.png" id="6_0icj0"]
+
+[sub_resource type="Gradient" id="Gradient_gijjb"]
+interpolation_mode = 2
+colors = PackedColorArray(0.0646965, 0.0646966, 0.0646965, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5fq7v"]
+gradient = SubResource("Gradient_gijjb")
+fill = 1
+fill_from = Vector2(0.481651, 0.509174)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ye5n"]
+shader = ExtResource("3_j3qfp")
+shader_parameter/resolution = Vector2(640, 340)
+shader_parameter/scan_line_amount = 0.3
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.219
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.0
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_88ekj")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.32859, 0.267368, 0.430063, 1)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+offset_right = 640.0
+offset_bottom = 340.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(371, -32)
+scale = Vector2(22.8269, 15.1794)
+energy = 1.46
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_5fq7v")
+
+[node name="Skyline" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.466667)
+offset_left = 115.0
+offset_top = 95.0
+offset_right = 534.0
+offset_bottom = 340.0
+texture = ExtResource("2_0winm")
+expand_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_1ye5n")
+offset_right = 640.0
+offset_bottom = 340.0
+mouse_filter = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 162.0
+offset_top = 47.0
+offset_right = 493.0
+offset_bottom = 103.0
+theme_override_fonts/normal_font = ExtResource("5_8dkuh")
+theme_override_font_sizes/normal_font_size = 30
+text = "Game over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="TextureButton" parent="CanvasLayer"]
+offset_left = 262.0
+offset_top = 162.0
+offset_right = 390.0
+offset_bottom = 226.0
+texture_normal = ExtResource("6_0icj0")
+stretch_mode = 0
+
+[node name="DayReached" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 162.0
+offset_top = 89.0
+offset_right = 493.0
+offset_bottom = 145.0
+theme_override_fonts/normal_font = ExtResource("5_8dkuh")
+theme_override_font_sizes/normal_font_size = 25
+text = "Game over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="CanvasLayer/Continue" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Continue" to="." method="_on_texture_button_mouse_exited"]

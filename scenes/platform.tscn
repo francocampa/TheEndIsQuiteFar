@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c82alav3imxhd"]
 
-[ext_resource type="Texture2D" uid="uid://ysx2ysy2rkvb" path="res://sprites/SquareBlock.png" id="1_ba0x2"]
 [ext_resource type="Script" uid="uid://cietac66abnpx" path="res://scenes/platform.gd" id="1_nlgqw"]
+[ext_resource type="Texture2D" uid="uid://bjvcqnh00xbjo" path="res://sprites/Platform.png" id="2_nlgqw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v4t87"]
 resource_local_to_scene = true
@@ -11,11 +11,32 @@ size = Vector2(40, 40)
 resource_local_to_scene = true
 size = Vector2(8, 19.375)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlgqw"]
-size = Vector2(10, 10)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_nlgqw"]
+resource_local_to_scene = true
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [node name="Platform" type="StaticBody2D"]
 script = ExtResource("1_nlgqw")
+
+[node name="Texture" type="NinePatchRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("2_nlgqw")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_v4t87")
@@ -40,44 +61,5 @@ scale = Vector2(1, 0.4)
 shape = SubResource("RectangleShape2D_ba0x2")
 debug_color = Color(0.941405, 0.119466, 0.527422, 0.42)
 
-[node name="Texture" type="NinePatchRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(20, 20)
-texture = ExtResource("1_ba0x2")
-region_rect = Rect2(0, 0, 32, 32)
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="Resize" type="Node2D" parent="."]
-
-[node name="TopLeft" type="Area2D" parent="Resize"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/TopLeft"]
-shape = SubResource("RectangleShape2D_nlgqw")
-
-[node name="TopRight" type="Area2D" parent="Resize"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/TopRight"]
-shape = SubResource("RectangleShape2D_nlgqw")
-
-[node name="BottomRight" type="Area2D" parent="Resize"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/BottomRight"]
-shape = SubResource("RectangleShape2D_nlgqw")
-
-[node name="BottomLeft" type="Area2D" parent="Resize"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Resize/BottomLeft"]
-shape = SubResource("RectangleShape2D_nlgqw")
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_nlgqw")

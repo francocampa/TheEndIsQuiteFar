@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://begmcokcnptr5"]
+[gd_scene load_steps=5 format=3 uid="uid://begmcokcnptr5"]
 
 [ext_resource type="Texture2D" uid="uid://j41k600umhmx" path="res://sprites/Spikes.png" id="1_6qlkc"]
 [ext_resource type="Script" uid="uid://5pmfxca2gxau" path="res://scenes/spikes.gd" id="1_mmke3"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_mmke3"]
-points = PackedVector2Array(-8, 8, -5, -1, 2, -2, 6, 1, 8, 8)
+points = PackedVector2Array(-8, -6, 4, -1, 4, 1, -8, 6)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mmke3"]
+polygon = PackedVector2Array(-8, -6, 4, -1, 4, 1, -8, 6)
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 0
@@ -16,5 +19,8 @@ shape = SubResource("ConvexPolygonShape2D_mmke3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6qlkc")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_mmke3")
 
 [connection signal="body_entered" from="." to="." method="_on_player_entered"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://c5qsko7ldu3qi"]
+[gd_scene load_steps=27 format=3 uid="uid://c5qsko7ldu3qi"]
 
 [ext_resource type="PackedScene" uid="uid://biyuguwhlm3hr" path="res://scenes/Player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://qnnvgykbixy2" path="res://scenes/level.gd" id="1_ppgk2"]
+[ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="2_fpun6"]
 [ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://dqkopyta44dsp" path="res://scenes/Hang.tscn" id="2_w8frs"]
+[ext_resource type="Shader" uid="uid://crpgr8eiwth0w" path="res://scenes/grid.gdshader" id="3_wc255"]
 [ext_resource type="PackedScene" uid="uid://dm8kwsht4p1xx" path="res://scenes/Portal.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://begmcokcnptr5" path="res://scenes/Spikes.tscn" id="6_2r41h"]
 [ext_resource type="PackedScene" uid="uid://cdhhcj4rraj34" path="res://scenes/item_card.tscn" id="7_klq6b"]
@@ -13,101 +15,207 @@
 [ext_resource type="Texture2D" uid="uid://j41k600umhmx" path="res://sprites/Spikes.png" id="11_fpun6"]
 [ext_resource type="PackedScene" uid="uid://b83sa8yqeshpq" path="res://scenes/Item_preview.tscn" id="12_8iemx"]
 [ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="13_64w2a"]
+[ext_resource type="Texture2D" uid="uid://wptmqvyou7yr" path="res://sprites/ContinueButton.png" id="16_arp2o"]
 
-[sub_resource type="Resource" id="Resource_fpun6"]
+[sub_resource type="Gradient" id="Gradient_arp2o"]
+interpolation_mode = 2
+colors = PackedColorArray(0.0646965, 0.0646966, 0.0646965, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wc255"]
+gradient = SubResource("Gradient_arp2o")
+fill = 1
+fill_from = Vector2(0.481651, 0.509174)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux5qa"]
+shader = ExtResource("13_64w2a")
+shader_parameter/resolution = Vector2(640, 340)
+shader_parameter/scan_line_amount = 0.3
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.219
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_arp2o"]
+shader = ExtResource("3_wc255")
+shader_parameter/line_color = Color(1, 1, 1, 0.160784)
+shader_parameter/cell_size = 16.0
+shader_parameter/line_width = 1.0
+
+[sub_resource type="Resource" id="Resource_arp2o"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("9_8iemx")
 name = "Platform"
 type = 0
 scene = ExtResource("2_w7c3h")
+clipToWall = true
+clipToFloor = false
 metadata/_custom_type_script = "uid://bspdwewos6fov"
 
-[sub_resource type="Resource" id="Resource_wc255"]
+[sub_resource type="Resource" id="Resource_ux5qa"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("10_64w2a")
 name = "Hang"
 type = 0
 scene = ExtResource("2_w8frs")
+clipToWall = true
+clipToFloor = false
 metadata/_custom_type_script = "uid://bspdwewos6fov"
 
-[sub_resource type="Resource" id="Resource_arp2o"]
+[sub_resource type="Resource" id="Resource_82cfe"]
 resource_local_to_scene = true
 script = ExtResource("8_t1rx8")
 texture = ExtResource("11_fpun6")
 name = ""
 type = 1
 scene = ExtResource("6_2r41h")
+clipToWall = true
+clipToFloor = false
 metadata/_custom_type_script = "uid://bspdwewos6fov"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux5qa"]
-shader = ExtResource("13_64w2a")
-shader_parameter/resolution = Vector2(680, 340)
-shader_parameter/scan_line_amount = 0.5
-shader_parameter/warp_amount = 0.05
-shader_parameter/vignette_amount = 0.5
-shader_parameter/vignette_intensity = 0.3
-shader_parameter/grille_amount = 0.05
-shader_parameter/brightness_boost = 1.0
+[sub_resource type="Gradient" id="Gradient_8gofh"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.74026)
+colors = PackedColorArray(0.474013, 0.355026, 0.585847, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h6wmr"]
+gradient = SubResource("Gradient_8gofh")
+fill = 1
+fill_from = Vector2(0.5, 0.481651)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gunhw"]
+size = Vector2(1388, 20)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ppgk2")
 
-[node name="Area2D" parent="." instance=ExtResource("2_w8frs")]
-position = Vector2(317, 158)
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.32859, 0.267368, 0.430063, 1)
 
-[node name="Start" parent="." instance=ExtResource("4_mx8sn")]
-unique_name_in_owner = true
-position = Vector2(17, 140)
+[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+offset_right = 640.0
+offset_bottom = 340.0
 
-[node name="Exit" parent="." instance=ExtResource("4_mx8sn")]
-unique_name_in_owner = true
-position = Vector2(594, 207)
-type = 1
-
-[node name="Player" parent="." instance=ExtResource("1_2q6dc")]
-unique_name_in_owner = true
-position = Vector2(318, 10)
-
-[node name="Platforms" type="Node2D" parent="."]
-
-[node name="Platform" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(255, 115)
-platform_size = Vector2(16, 16)
-
-[node name="Platform2" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(289, 156)
-
-[node name="Platform3" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(354, 251)
-platform_size = Vector2(1200, 40)
-
-[node name="Area2D2" parent="." instance=ExtResource("6_2r41h")]
-position = Vector2(292, 223)
-
-[node name="ItemCards" type="Node2D" parent="."]
-visible = false
-
-[node name="ItemCard1" parent="ItemCards" instance=ExtResource("7_klq6b")]
-position = Vector2(258, 305)
-item = SubResource("Resource_fpun6")
-
-[node name="ItemCard2" parent="ItemCards" instance=ExtResource("7_klq6b")]
-position = Vector2(323, 301)
-item = SubResource("Resource_wc255")
-
-[node name="ItemCard3" parent="ItemCards" instance=ExtResource("7_klq6b")]
-position = Vector2(391, 307)
-item = SubResource("Resource_arp2o")
-
-[node name="ItemPreview" parent="." instance=ExtResource("12_8iemx")]
-visible = false
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(371, -32)
+scale = Vector2(22.8269, 15.1794)
+energy = 1.46
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_wc255")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource("ShaderMaterial_ux5qa")
 offset_right = 640.0
 offset_bottom = 340.0
 mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GRID" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_arp2o")
+offset_right = 640.0
+offset_bottom = 340.0
+mouse_filter = 1
+
+[node name="Skyline" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.466667)
+offset_left = 115.0
+offset_top = 95.0
+offset_right = 534.0
+offset_bottom = 340.0
+texture = ExtResource("2_fpun6")
+expand_mode = 1
+
+[node name="Start" parent="." instance=ExtResource("4_mx8sn")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(12, 183)
+
+[node name="Exit" parent="." instance=ExtResource("4_mx8sn")]
+unique_name_in_owner = true
+position = Vector2(612, 235)
+type = 1
+
+[node name="Player" parent="." instance=ExtResource("1_2q6dc")]
+unique_name_in_owner = true
+position = Vector2(10, -49)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Floor" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(311, 322)
+platform_size = Vector2(320, 40)
+
+[node name="BlockerLeft" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(-7, 181)
+platform_size = Vector2(16, 1000)
+
+[node name="Start" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(6, 250)
+platform_size = Vector2(16, 120)
+
+[node name="Platform" parent="Platforms" instance=ExtResource("2_w7c3h")]
+position = Vector2(358, 268)
+platform_size = Vector2(64, 16)
+
+[node name="Elements" type="Node2D" parent="."]
+
+[node name="ItemPreview" parent="." instance=ExtResource("12_8iemx")]
+position = Vector2(1, -1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+position = Vector2(541, 42)
+color = Color(0.473976, 0.473976, 0.473976, 1)
+shadow_enabled = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ItemCards" type="Node2D" parent="CanvasLayer2"]
+unique_name_in_owner = true
+visible = false
+
+[node name="ItemCard1" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(258, 305)
+item = SubResource("Resource_arp2o")
+
+[node name="ItemCard2" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(323, 301)
+item = SubResource("Resource_ux5qa")
+
+[node name="ItemCard3" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
+position = Vector2(391, 307)
+item = SubResource("Resource_82cfe")
+
+[node name="Continue" type="TextureButton" parent="CanvasLayer2"]
+visible = false
+offset_left = 508.0
+offset_top = 261.0
+offset_right = 572.0
+offset_bottom = 293.0
+texture_normal = ExtResource("16_arp2o")
+stretch_mode = 0
+
+[node name="PointLight2D2" type="PointLight2D" parent="CanvasLayer2/Continue"]
+position = Vector2(34, 18)
+scale = Vector2(1.45313, 1)
+texture = SubResource("GradientTexture2D_h6wmr")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-53, 359)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(360, -5)
+shape = SubResource("RectangleShape2D_gunhw")
+
+[connection signal="mouse_entered" from="CanvasLayer2/Continue" to="." method="_on_continue_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/Continue" to="." method="_on_continue_mouse_exited"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

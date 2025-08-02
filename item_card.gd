@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var level:Node2D = get_parent().get_parent(); #i'm un poquititito loco 
+@onready var level:Node2D = get_parent().get_parent().get_parent(); #i'm un poquititito loco 
 
 @export var item:ItemResource;
 @export var ammount:int = 1;
@@ -30,10 +30,12 @@ func _on_mouse_exited() -> void:
 	
 func disable()->void:
 	disabled = true;
+func enable()->void:
+	disabled = false;
 
 func set_item(item:ItemResource)->void:
 	self.item = item;
-	
+	disabled = false;
 	match item.type:
 		ItemResource.Type.Building:
 			$Card.self_modulate = Color("2e9ac2");

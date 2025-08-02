@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://vjttmjphdfby"]
+
+[ext_resource type="Script" uid="uid://4k35vbl15gxu" path="res://scenes/skull_bird.gd" id="1_c10x5"]
+[ext_resource type="Texture2D" uid="uid://cpcnnv4ousghg" path="res://sprites/SkullBird.png" id="2_d3xbn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co1by"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ieea2"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn0bf"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5b88"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rysj"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gygwt"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_602mc"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjhb6"]
+atlas = ExtResource("2_d3xbn")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sw6vs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co1by")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ieea2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn0bf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5b88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rysj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gygwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_602mc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjhb6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 13.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_jdmaq"]
+points = PackedVector2Array(-6, -4, -1, -7, 5, -4, 5, 1, 2, 3, 0, 7, -1, 7, -3, 3, -6, 1)
+
+[node name="SkullBird" type="Node2D"]
+script = ExtResource("1_c10x5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sw6vs")
+autoplay = "default"
+frame_progress = 0.340599
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -1)
+shape = SubResource("ConvexPolygonShape2D_jdmaq")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

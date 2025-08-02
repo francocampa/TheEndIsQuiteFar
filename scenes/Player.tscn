@@ -1,20 +1,126 @@
-[gd_scene load_steps=5 format=3 uid="uid://biyuguwhlm3hr"]
+[gd_scene load_steps=25 format=3 uid="uid://biyuguwhlm3hr"]
 
 [ext_resource type="Script" uid="uid://r0w2vtp168hy" path="res://scenes/player.gd" id="1_v6fml"]
+[ext_resource type="Texture2D" uid="uid://oge863ui7awm" path="res://sprites/PlayerIdle.png" id="2_qu4a1"]
 [ext_resource type="Texture2D" uid="uid://djdyc7y3osyrb" path="res://sprites/Player.png" id="2_v6fml"]
+[ext_resource type="Texture2D" uid="uid://n8pvo3r3ppum" path="res://sprites/PlayerJumping.png" id="3_70d11"]
+[ext_resource type="Texture2D" uid="uid://du2oaygyu4au5" path="res://sprites/PlayerWalking.png" id="4_cw2d6"]
+[ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="6_cw2d6"]
+[ext_resource type="Texture2D" uid="uid://q052ek75w6jx" path="res://sprites/MoneyIcon.png" id="7_bruh7"]
+[ext_resource type="Texture2D" uid="uid://b3asafi2s8r35" path="res://sprites/LivesIcon.png" id="7_khinc"]
+[ext_resource type="Texture2D" uid="uid://c1q4uu7qlm2hb" path="res://sprites/ClockIcon.png" id="8_khinc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v6fml"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
+size = Vector2(14, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6fml"]
 size = Vector2(2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
+atlas = ExtResource("2_qu4a1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bruh7"]
+atlas = ExtResource("2_qu4a1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eyey"]
+atlas = ExtResource("2_qu4a1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3wef"]
+atlas = ExtResource("2_qu4a1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4126"]
+atlas = ExtResource("2_qu4a1")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkdrv"]
+atlas = ExtResource("3_70d11")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7iby"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rnld"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srp4u"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfpux"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61ith"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebwui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khinc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bruh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3wef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4126")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkdrv")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7iby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rnld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srp4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfpux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61ith")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 15.0
+}]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qu4a1"]
+polygon = PackedVector2Array(-16, 6, -14, -3, -10, -6, -6, -6, -3, -4, 0, 1, 0, 7, -16, 7)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 128
 script = ExtResource("1_v6fml")
 
 [node name="PlatformingHB" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_v6fml")
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_qu4a1")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -30,9 +136,20 @@ one_shot = true
 
 [node name="CrouchAnim" type="Timer" parent="Timers"]
 unique_name_in_owner = true
-wait_time = 0.3
+wait_time = 0.1
+one_shot = true
+
+[node name="Life" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="HangBuffer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true
 
 [node name="Grabbers" type="Node2D" parent="."]
+position = Vector2(0, -8)
 
 [node name="Left" type="Area2D" parent="Grabbers"]
 unique_name_in_owner = true
@@ -55,16 +172,91 @@ position = Vector2(-140, -1)
 shape = SubResource("RectangleShape2D_v6fml")
 debug_color = Color(0.807136, 0.389189, 0.388529, 0.42)
 
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_ebwui")
+animation = &"idle"
+
 [node name="Sprite" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_v6fml")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(8, -9)
+occluder = SubResource("OccluderPolygon2D_qu4a1")
 
 [node name="Hud" type="CanvasLayer" parent="."]
 
+[node name="Day" type="RichTextLabel" parent="Hud"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 316.0
+offset_top = 14.0
+offset_right = 507.0
+offset_bottom = 41.0
+theme_override_fonts/normal_font = ExtResource("6_cw2d6")
+text = "Week 1, Mon"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="LivesText" type="RichTextLabel" parent="Hud"]
-offset_right = 87.0
-offset_bottom = 27.0
-text = "Lives: "
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 63.0
+offset_top = 11.0
+offset_right = 118.0
+offset_bottom = 38.0
+theme_override_fonts/normal_font = ExtResource("6_cw2d6")
+text = "x 3"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoneyIcon" type="TextureRect" parent="Hud"]
+offset_left = 129.0
+offset_top = 6.0
+offset_right = 169.0
+offset_bottom = 46.0
+texture = ExtResource("7_bruh7")
+
+[node name="Hearth" type="TextureRect" parent="Hud"]
+offset_left = 11.0
+offset_top = 5.0
+offset_right = 51.0
+offset_bottom = 45.0
+texture = ExtResource("7_khinc")
+
+[node name="Clock" type="TextureRect" parent="Hud"]
+offset_left = 516.0
+offset_top = 3.0
+offset_right = 556.0
+offset_bottom = 43.0
+texture = ExtResource("8_khinc")
+
+[node name="Timer" type="RichTextLabel" parent="Hud"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 557.0
+offset_top = 15.0
+offset_right = 641.0
+offset_bottom = 42.0
+theme_override_fonts/normal_font = ExtResource("6_cw2d6")
+text = "30.00"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Money" type="RichTextLabel" parent="Hud"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 164.0
+offset_top = 12.0
+offset_right = 329.0
+offset_bottom = 39.0
+theme_override_fonts/normal_font = ExtResource("6_cw2d6")
+text = "1,000
+"
+scroll_active = false
+vertical_alignment = 1
 
 [connection signal="timeout" from="Timers/CoyoteTime" to="." method="_on_coyote_time_timeout"]
+[connection signal="timeout" from="Timers/Life" to="." method="_on_life_timeout"]
 [connection signal="area_entered" from="Grabbers/Left" to="." method="_on_left_area_entered"]
 [connection signal="area_entered" from="Grabbers/Right" to="." method="_on_right_area_entered"]
