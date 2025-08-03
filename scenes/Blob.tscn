@@ -54,14 +54,13 @@ size = Vector2(10, 2)
 
 [node name="Blob" type="RigidBody2D"]
 collision_layer = 0
-collision_mask = 129
 gravity_scale = 0.0
 script = ExtResource("1_gpcks")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nn863")
 autoplay = "default"
-frame_progress = 0.639511
+frame_progress = 0.570842
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -75,5 +74,13 @@ collision_mask = 2
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_jlw6w")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_w70e3")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

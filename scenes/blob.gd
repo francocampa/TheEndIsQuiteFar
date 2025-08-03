@@ -29,5 +29,5 @@ func _process(delta: float) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	dir*=-1;
 
-func _on_body_entered(body: Node) -> void:
+func _on_hit_box_body_entered(body: Node2D) -> void:
 	level.rip_bro();

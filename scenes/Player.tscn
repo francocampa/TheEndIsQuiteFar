@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://biyuguwhlm3hr"]
+[gd_scene load_steps=27 format=3 uid="uid://biyuguwhlm3hr"]
 
 [ext_resource type="Script" uid="uid://r0w2vtp168hy" path="res://scenes/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://oge863ui7awm" path="res://sprites/PlayerIdle.png" id="2_qu4a1"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://q052ek75w6jx" path="res://sprites/MoneyIcon.png" id="7_bruh7"]
 [ext_resource type="Texture2D" uid="uid://b3asafi2s8r35" path="res://sprites/LivesIcon.png" id="7_khinc"]
 [ext_resource type="Texture2D" uid="uid://c1q4uu7qlm2hb" path="res://sprites/ClockIcon.png" id="8_khinc"]
+[ext_resource type="Texture2D" uid="uid://bt2ld5dl8anrg" path="res://sprites/ExitButton.png" id="10_d3wef"]
+[ext_resource type="Script" uid="uid://dkc0nprggrspl" path="res://scenes/player_exit.gd" id="11_o4126"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
 size = Vector2(14, 9)
@@ -163,12 +165,12 @@ debug_color = Color(0.807136, 0.389189, 0.388529, 0.42)
 
 [node name="Right" type="Area2D" parent="Grabbers"]
 unique_name_in_owner = true
-position = Vector2(148, 0)
+position = Vector2(162, 6)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grabbers/Right"]
-position = Vector2(-140, -1)
+position = Vector2(-154, -7)
 shape = SubResource("RectangleShape2D_v6fml")
 debug_color = Color(0.807136, 0.389189, 0.388529, 0.42)
 
@@ -186,13 +188,14 @@ position = Vector2(8, -9)
 occluder = SubResource("OccluderPolygon2D_qu4a1")
 
 [node name="Hud" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Day" type="RichTextLabel" parent="Hud"]
 modulate = Color(0.117647, 0.117647, 0.117647, 1)
-offset_left = 316.0
-offset_top = 14.0
-offset_right = 507.0
-offset_bottom = 41.0
+offset_left = 174.0
+offset_top = 17.0
+offset_right = 365.0
+offset_bottom = 44.0
 theme_override_fonts/normal_font = ExtResource("6_cw2d6")
 text = "Week 1, Mon"
 scroll_active = false
@@ -212,10 +215,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoneyIcon" type="TextureRect" parent="Hud"]
-offset_left = 129.0
-offset_top = 6.0
-offset_right = 169.0
-offset_bottom = 46.0
+offset_left = 10.0
+offset_top = 51.0
+offset_right = 50.0
+offset_bottom = 91.0
 texture = ExtResource("7_bruh7")
 
 [node name="Hearth" type="TextureRect" parent="Hud"]
@@ -226,18 +229,18 @@ offset_bottom = 45.0
 texture = ExtResource("7_khinc")
 
 [node name="Clock" type="TextureRect" parent="Hud"]
-offset_left = 516.0
-offset_top = 3.0
-offset_right = 556.0
-offset_bottom = 43.0
+offset_left = 376.0
+offset_top = 12.0
+offset_right = 416.0
+offset_bottom = 52.0
 texture = ExtResource("8_khinc")
 
 [node name="Timer" type="RichTextLabel" parent="Hud"]
 modulate = Color(0.117647, 0.117647, 0.117647, 1)
-offset_left = 557.0
-offset_top = 15.0
-offset_right = 641.0
-offset_bottom = 42.0
+offset_left = 417.0
+offset_top = 20.0
+offset_right = 501.0
+offset_bottom = 47.0
 theme_override_fonts/normal_font = ExtResource("6_cw2d6")
 text = "30.00"
 scroll_active = false
@@ -246,15 +249,24 @@ vertical_alignment = 1
 
 [node name="Money" type="RichTextLabel" parent="Hud"]
 modulate = Color(0.117647, 0.117647, 0.117647, 1)
-offset_left = 164.0
-offset_top = 12.0
-offset_right = 329.0
-offset_bottom = 39.0
+offset_left = 45.0
+offset_top = 57.0
+offset_right = 210.0
+offset_bottom = 84.0
 theme_override_fonts/normal_font = ExtResource("6_cw2d6")
 text = "1,000
 "
 scroll_active = false
 vertical_alignment = 1
+
+[node name="Exit" type="TextureButton" parent="Hud"]
+offset_left = 575.0
+offset_top = 22.0
+offset_right = 607.0
+offset_bottom = 54.0
+texture_normal = ExtResource("10_d3wef")
+stretch_mode = 0
+script = ExtResource("11_o4126")
 
 [connection signal="timeout" from="Timers/CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="Timers/Life" to="." method="_on_life_timeout"]

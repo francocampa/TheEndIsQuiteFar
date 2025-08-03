@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0x2lbsf7fu0d"]
+
+[ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="1_f1upu"]
+[ext_resource type="PackedScene" uid="uid://dqkopyta44dsp" path="res://scenes/Hang.tscn" id="3_n4lbd"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("1_f1upu")]
+position = Vector2(158, 292)
+platform_size = Vector2(208, 16)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("1_f1upu")]
+position = Vector2(493, 297)
+platform_size = Vector2(208, 16)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("1_f1upu")]
+position = Vector2(325, 251)
+platform_size = Vector2(48, 188)
+
+[node name="Elements" type="Node2D" parent="."]
+
+[node name="Hang" parent="Elements" instance=ExtResource("3_n4lbd")]
+position = Vector2(293, 241)
+scale = Vector2(-1, 1)
+
+[node name="Hang2" parent="Elements" instance=ExtResource("3_n4lbd")]
+position = Vector2(293, 200)
+scale = Vector2(-1, 1)

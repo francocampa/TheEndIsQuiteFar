@@ -11,7 +11,7 @@ func _ready() -> void:
 	else: if(money >= 500000):
 		$CanvasLayer/FinalMessage.text = "You got over the half way mark! Either way, everyone's dead";
 	else:
-		$CanvasLayer/FinalMessage.text = "You are as poor as were at the start, but now you're dead";
+		$CanvasLayer/FinalMessage.text = "You are as poor as were at the start, but now you're also dead";
 
 func _process(delta: float) -> void:
 	if(hover):

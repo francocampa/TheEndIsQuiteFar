@@ -10,9 +10,19 @@ var continueHover = false;
 var editing:bool = false;
 var placed:int = 0;
 
+var maxPlatformHeight:int = 0;
+
 func _ready() -> void:
-	start_level();
 	rng = RandomNumberGenerator.new();
+	var level:Node2D = Global.levels[rng.randi()%Global.levels.size()].instantiate();
+	for p in level.get_child(0).get_children():
+		$Platforms.add_child(p.duplicate());
+	for e in level.get_child(1).get_children():
+		$Elements.add_child(e.duplicate());
+
+	start_level();
+	for p in $Platforms.get_children():
+		maxPlatformHeight = max(p.position.y, maxPlatformHeight);
 
 func start_level() -> void:
 	%ItemCards.visible = false;
@@ -35,7 +45,7 @@ func start_level() -> void:
 func beat_level() -> void:
 	player.pause();
 	player.beat_level();
-	if(player.day / 7 == 5):
+	if(player.day / 7 == 4):
 		Global.ended_run(player.day, player.money);
 		get_tree().change_scene_to_packed(Global.gameWonScene);
 		
@@ -91,9 +101,13 @@ func place_element(itemRes:ItemResource,pos:Vector2,dir:int):
 			3:
 				itemInstance.rotate(-PI/2);
 	
+	if(itemRes.type == ItemResource.Type.Enemy):
+		player.add_income(itemRes.name);
+	
 	if(itemRes.name == "Platform"):
 		$Platforms.add_child(itemInstance);
 		itemInstance.set_platform_size(platformSize);
+		maxPlatformHeight = max(pos.y, maxPlatformHeight);
 	else:
 		$Elements.add_child(itemInstance);
 	

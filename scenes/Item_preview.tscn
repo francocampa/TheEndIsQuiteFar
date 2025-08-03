@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b83sa8yqeshpq"]
+[gd_scene load_steps=4 format=3 uid="uid://b83sa8yqeshpq"]
 
 [ext_resource type="Script" uid="uid://tp23xlvvlec2" path="res://item_preview.gd" id="1_uwqfx"]
 [ext_resource type="Texture2D" uid="uid://bjvcqnh00xbjo" path="res://sprites/Platform.png" id="2_4o70t"]
+[ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="3_x80aw"]
 
 [node name="ItemPreview" type="Node2D"]
 script = ExtResource("1_uwqfx")
@@ -20,3 +21,14 @@ pivot_offset = Vector2(8, 8)
 texture = ExtResource("2_4o70t")
 stretch_mode = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ErrorMessage" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.773359, 0, 0.191786, 1)
+offset_right = 640.0
+offset_bottom = 340.0
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("3_x80aw")
+horizontal_alignment = 1
+vertical_alignment = 1

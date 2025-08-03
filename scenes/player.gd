@@ -11,22 +11,25 @@ var timeLeft:float = 30;
 @export var grav:float = 20;
 @export var xAcc:float = 50;
 @export var xFricFactor:float = 0.5;
-@export var jumpHeight:float = -400;
+@export var jumpHeight:float = -320;
 @export var minVel:Vector2 = Vector2(-1000,-1000);
 @export var maxVel:Vector2 = Vector2(1000,1000);
 @export var walkSpeed:float = 200;
 @export var lives:int = 3;
+@export var hideHud:bool = false;
 
 var vel:Vector2 = Vector2();
 var lastDir:int = 1;
 var crouching:bool = false;
 var hangFall:bool = false;
 var platform:Node2D = null;
-var day:int = 0;
+var day:int = 1;
 var money:int = 0;
 var daylyIncome:int = 1000;
 
 func _ready() -> void:
+	var hud:CanvasLayer = $Hud;
+	hud.visible = !hideHud;
 	update_hud();
 
 func _physics_process(delta: float) -> void:
@@ -74,10 +77,10 @@ func start_jump():
 	jumps-=1;
 	if(state == PlayerStates.Hanging):
 		if(Input.is_action_pressed("Left") && lastDir == -1):
-			vel.x = jumpHeight;
+			vel.x = jumpHeight*1.2;
 			vel.y = jumpHeight/1.5;
 		else: if(Input.is_action_pressed("Right") && lastDir == 1):
-			vel.x = -jumpHeight;
+			vel.x = -jumpHeight*1.2;
 			vel.y = jumpHeight/1.5;
 		else:
 			vel.y = jumpHeight;
@@ -94,9 +97,9 @@ func start_falling():
 		hangFall = true;
 		if(platform != null):
 			if(oldSpeed > 0):
-				vel.x = position.x - platform.position.x - platform.platform_size.x;
+				position.x = 8 + platform.position.x + platform.platform_size.x/2;
 			else: 
-				vel.x =  platform.position.x - position.x ;
+				position.x =  platform.position.x - platform.platform_size.x/2 - 8 ;
 	%CoyoteTime.start();
 
 func _on_coyote_time_timeout() -> void:
@@ -195,8 +198,8 @@ func rip():
 func update_hud():
 	$Hud/LivesText.text = "x " + str(lives);
 	$Hud/Timer.text = str(%Life.time_left).substr(0,5);
-	
 	$Hud/Day.text = Global.getDayText(day);
+	$Hud/Money.text = str(money);
 	
 func pause():
 	state = PlayerStates.Paused;
@@ -209,6 +212,7 @@ func unpause():
 
 func beat_level():
 	day += 1;
+	money += daylyIncome;
 
 func _on_life_timeout() -> void:
 	level.rip_bro();
@@ -222,4 +226,5 @@ func add_income(obstacleName:String):
 			daylyIncome+=2000;
 		"Blob":
 			daylyIncome+=2000;
+			
 	

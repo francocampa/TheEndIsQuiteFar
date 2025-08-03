@@ -1,0 +1,270 @@
+[gd_scene load_steps=14 format=3 uid="uid://dnmhnkit2v13f"]
+
+[ext_resource type="Script" uid="uid://c6ktiaskfr7fw" path="res://resources/platformLayout/tutorial.gd" id="1_a6c5q"]
+[ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="1_icgvo"]
+[ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="2_w5ait"]
+[ext_resource type="Texture2D" uid="uid://bt2ld5dl8anrg" path="res://sprites/ExitButton.png" id="3_e2jow"]
+[ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="4_ugmc8"]
+[ext_resource type="PackedScene" uid="uid://dqkopyta44dsp" path="res://scenes/Hang.tscn" id="5_a6c5q"]
+[ext_resource type="PackedScene" uid="uid://biyuguwhlm3hr" path="res://scenes/Player.tscn" id="6_n73gx"]
+[ext_resource type="Texture2D" uid="uid://j3iferartr5b" path="res://sprites/PlayerIcon.png" id="7_5q1y8"]
+[ext_resource type="PackedScene" uid="uid://b110lpip5jbxa" path="res://scenes/Blob.tscn" id="7_n73gx"]
+
+[sub_resource type="Gradient" id="Gradient_gijjb"]
+interpolation_mode = 2
+colors = PackedColorArray(0.0646965, 0.0646966, 0.0646965, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c3vsi"]
+gradient = SubResource("Gradient_gijjb")
+fill = 1
+fill_from = Vector2(0.481651, 0.509174)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugmc8"]
+shader = ExtResource("2_w5ait")
+shader_parameter/resolution = Vector2(640, 340)
+shader_parameter/scan_line_amount = 0.3
+shader_parameter/warp_amount = 0.05
+shader_parameter/vignette_amount = 0.219
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/grille_amount = 0.05
+shader_parameter/brightness_boost = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n73gx"]
+size = Vector2(1369, 20)
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_a6c5q")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.32859, 0.267368, 0.430063, 1)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+offset_right = 640.0
+offset_bottom = 340.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(371, -32)
+scale = Vector2(22.8269, 15.1794)
+energy = 1.46
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_c3vsi")
+
+[node name="Skyline" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.466667)
+offset_left = 115.0
+offset_top = 95.0
+offset_right = 534.0
+offset_bottom = 340.0
+texture = ExtResource("1_icgvo")
+expand_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ugmc8")
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 642.0
+offset_bottom = 341.0
+mouse_filter = 1
+
+[node name="Continue" type="TextureButton" parent="CanvasLayer"]
+offset_left = 266.0
+offset_top = 24.0
+offset_right = 330.0
+offset_bottom = 88.0
+texture_normal = ExtResource("3_e2jow")
+stretch_mode = 0
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("4_ugmc8")]
+position = Vector2(139, 320)
+platform_size = Vector2(208, 16)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("4_ugmc8")]
+position = Vector2(462, 319)
+platform_size = Vector2(208, 16)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("4_ugmc8")]
+position = Vector2(300, 263)
+platform_size = Vector2(208, 48)
+
+[node name="Elements" type="Node2D" parent="."]
+
+[node name="Hang" parent="Elements" instance=ExtResource("5_a6c5q")]
+position = Vector2(412, 264)
+
+[node name="Blob" parent="Elements" instance=ExtResource("7_n73gx")]
+position = Vector2(300, 247)
+
+[node name="Player" parent="." instance=ExtResource("6_n73gx")]
+position = Vector2(62, 303)
+hideHud = true
+
+[node name="Tutorials" type="Node2D" parent="."]
+
+[node name="LedgeTuto" type="Node2D" parent="Tutorials"]
+modulate = Color(1, 1, 1, 0.376471)
+
+[node name="Sprite2D" type="Sprite2D" parent="Tutorials/LedgeTuto"]
+position = Vector2(251, 312)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_5q1y8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Tutorials/LedgeTuto"]
+position = Vector2(186, 304)
+texture = ExtResource("7_5q1y8")
+
+[node name="ColorRect" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 199.0
+offset_top = 303.0
+offset_right = 205.0
+offset_bottom = 305.0
+
+[node name="ColorRect2" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 208.0
+offset_top = 303.0
+offset_right = 214.0
+offset_bottom = 305.0
+
+[node name="ColorRect3" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 217.0
+offset_top = 303.0
+offset_right = 223.0
+offset_bottom = 305.0
+
+[node name="ColorRect4" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 226.0
+offset_top = 303.0
+offset_right = 232.0
+offset_bottom = 305.0
+
+[node name="ColorRect5" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 235.0
+offset_top = 303.0
+offset_right = 241.0
+offset_bottom = 305.0
+rotation = 0.276971
+
+[node name="ColorRect6" type="ColorRect" parent="Tutorials/LedgeTuto"]
+offset_left = 244.0
+offset_top = 306.0
+offset_right = 250.0
+offset_bottom = 308.0
+rotation = 0.624385
+
+[node name="HangTuto" type="Node2D" parent="Tutorials"]
+modulate = Color(1, 1, 1, 0.376471)
+
+[node name="Sprite2D" type="Sprite2D" parent="Tutorials/HangTuto"]
+position = Vector2(443, 304)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_5q1y8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Tutorials/HangTuto"]
+position = Vector2(414, 263)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_5q1y8")
+
+[node name="ColorRect" type="ColorRect" parent="Tutorials/HangTuto"]
+offset_left = 440.0
+offset_top = 294.0
+offset_right = 446.0
+offset_bottom = 296.0
+rotation = 1.40272
+
+[node name="ColorRect2" type="ColorRect" parent="Tutorials/HangTuto"]
+offset_left = 438.0
+offset_top = 285.0
+offset_right = 444.0
+offset_bottom = 287.0
+rotation = 1.31809
+
+[node name="ColorRect3" type="ColorRect" parent="Tutorials/HangTuto"]
+offset_left = 434.933
+offset_top = 276.0
+offset_right = 440.933
+offset_bottom = 278.0
+rotation = 1.28584
+
+[node name="ColorRect4" type="ColorRect" parent="Tutorials/HangTuto"]
+offset_left = 430.0
+offset_top = 268.0
+offset_right = 436.0
+offset_bottom = 270.0
+rotation = 0.906591
+
+[node name="ColorRect5" type="ColorRect" parent="Tutorials/HangTuto"]
+offset_left = 422.0
+offset_top = 263.0
+offset_right = 428.0
+offset_bottom = 265.0
+rotation = 0.543707
+
+[node name="LedgeTuto2" type="Node2D" parent="Tutorials"]
+modulate = Color(1, 1, 1, 0.376471)
+position = Vector2(1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Tutorials/LedgeTuto2"]
+position = Vector2(251, 312)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_5q1y8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Tutorials/LedgeTuto2"]
+position = Vector2(384, 305)
+texture = ExtResource("7_5q1y8")
+
+[node name="ColorRect" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 265.0
+offset_top = 308.0
+offset_right = 271.0
+offset_bottom = 310.0
+rotation = -0.236889
+
+[node name="ColorRect2" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 274.0
+offset_top = 306.0
+offset_right = 280.0
+offset_bottom = 308.0
+rotation = -0.216627
+
+[node name="ColorRect3" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 283.0
+offset_top = 304.0
+offset_right = 289.0
+offset_bottom = 306.0
+rotation = -0.110156
+
+[node name="ColorRect4" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 292.0
+offset_top = 303.0
+offset_right = 298.0
+offset_bottom = 305.0
+
+[node name="ColorRect5" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 301.0
+offset_top = 303.0
+offset_right = 307.0
+offset_bottom = 305.0
+rotation = 0.0150805
+
+[node name="ColorRect6" type="ColorRect" parent="Tutorials/LedgeTuto2"]
+offset_left = 263.0
+offset_top = 311.0
+offset_right = 269.0
+offset_bottom = 313.0
+rotation = 2.76171
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(324.5, 355)
+shape = SubResource("RectangleShape2D_n73gx")
+
+[connection signal="mouse_entered" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -106,10 +106,17 @@ energy = 1.46
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_wc255")
 
+[node name="BlockerLeft" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-7, 181)
+platform_size = Vector2(16, 1000)
+
+[node name="BlockStart" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(6, 250)
+platform_size = Vector2(16, 120)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CRT" type="ColorRect" parent="CanvasLayer"]
-visible = false
 material = SubResource("ShaderMaterial_ux5qa")
 offset_right = 640.0
 offset_bottom = 340.0
@@ -117,7 +124,6 @@ mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="GRID" type="ColorRect" parent="CanvasLayer"]
-visible = false
 material = SubResource("ShaderMaterial_arp2o")
 offset_right = 640.0
 offset_bottom = 340.0
@@ -139,7 +145,7 @@ position = Vector2(12, 183)
 
 [node name="Exit" parent="." instance=ExtResource("4_mx8sn")]
 unique_name_in_owner = true
-position = Vector2(612, 235)
+position = Vector2(610, 272)
 type = 1
 
 [node name="Player" parent="." instance=ExtResource("1_2q6dc")]
@@ -148,32 +154,11 @@ position = Vector2(10, -49)
 
 [node name="Platforms" type="Node2D" parent="."]
 
-[node name="Floor" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(311, 322)
-platform_size = Vector2(320, 40)
-
-[node name="BlockerLeft" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(-7, 181)
-platform_size = Vector2(16, 1000)
-
-[node name="Start" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(6, 250)
-platform_size = Vector2(16, 120)
-
-[node name="Platform" parent="Platforms" instance=ExtResource("2_w7c3h")]
-position = Vector2(358, 268)
-platform_size = Vector2(64, 16)
-
 [node name="Elements" type="Node2D" parent="."]
 
 [node name="ItemPreview" parent="." instance=ExtResource("12_8iemx")]
-position = Vector2(1, -1)
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 visible = false
-position = Vector2(541, 42)
-color = Color(0.473976, 0.473976, 0.473976, 1)
-shadow_enabled = true
+position = Vector2(478, 783)
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
@@ -199,6 +184,7 @@ offset_left = 508.0
 offset_top = 261.0
 offset_right = 572.0
 offset_bottom = 293.0
+mouse_filter = 1
 texture_normal = ExtResource("16_arp2o")
 stretch_mode = 0
 

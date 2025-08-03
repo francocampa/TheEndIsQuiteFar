@@ -14,8 +14,11 @@ func _process(delta: float) -> void:
 			nextTickWorking = false;
 		return;
 	
+	handle_error_message(delta);
+	
 	var mousePos:Vector2 = get_global_mouse_position();
 	self.position = mousePos;
+	print(position);
 	if(itemRes.clipToWall):
 		handle_clip_to_wall();
 	if(itemRes.clipToFloor):
@@ -24,9 +27,12 @@ func _process(delta: float) -> void:
 	var offset:Vector2 = $Preview.size*-0.5;
 	self.position += offset;
 	
-	var validPlacement:bool = (!itemRes.clipToWall && !itemRes.clipToFloor) || dir >= 0;
-	
-	if(validPlacement && Input.is_action_just_pressed("LeftClick")):
+	var invalidReason:String = validate_placement();
+	if(invalidReason != ""):
+		$CanvasLayer/ErrorMessage.text = invalidReason;
+		return;
+	$CanvasLayer/ErrorMessage.text = "";
+	if(Input.is_action_just_pressed("LeftClick")):
 		working = false;
 		if(itemRes.name == "Platform"):
 			level.set_platform_size(platformSize);
@@ -137,3 +143,32 @@ func handle_clip_to_floor():
 		self.dir = dir;
 	else:
 		self.dir = -1;
+
+func validate_placement() -> String:
+	if(position.x < 0 || position.x > 640):
+		return "Out of range";
+	if(position.y < 0 || position.y > 340):
+		return "Out of range";
+	if(itemRes.clipToFloor):
+		if(dir < 0):
+			return "Must be in the floor"
+		else:
+			return "";
+	if(itemRes.clipToWall):
+		if(dir < 0):
+			return "Must be in a wall"
+		else:
+			return "";
+	
+	if(itemRes.name == "Platform"):
+		if(position.x < 20 || position.x + $Preview.size.x > 640):
+			return "Out of range";
+			
+	return "";
+	
+var angle:float = 0;
+func handle_error_message(delta:float) -> void:
+	angle+=5*delta;
+	var sin:float = sin(angle);
+	$CanvasLayer/ErrorMessage.visible = sin > 0;
+		

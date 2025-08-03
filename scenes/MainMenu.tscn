@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://brr1dblf3l5xd"]
+[gd_scene load_steps=11 format=3 uid="uid://brr1dblf3l5xd"]
 
 [ext_resource type="Script" uid="uid://bhubjt8qaa72y" path="res://scenes/main_menu.gd" id="1_826wr"]
 [ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="2_ucygd"]
 [ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="3_mipys"]
 [ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="5_7la6k"]
-[ext_resource type="Texture2D" uid="uid://wptmqvyou7yr" path="res://sprites/ContinueButton.png" id="6_2nypq"]
+[ext_resource type="Texture2D" uid="uid://xliuka1aw35k" path="res://sprites/StartButton.png" id="5_ucygd"]
+[ext_resource type="Texture2D" uid="uid://c17giepi1pko1" path="res://sprites/TutorialButton.png" id="6_mipys"]
+[ext_resource type="Texture2D" uid="uid://c3wnjr5nrt2xx" path="res://sprites/SettingsButton.png" id="7_8a8k8"]
 
 [sub_resource type="Gradient" id="Gradient_fpun6"]
 interpolation_mode = 2
@@ -73,13 +75,37 @@ text = "The end is quite far"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Continue" type="TextureButton" parent="CanvasLayer"]
-offset_left = 262.0
-offset_top = 162.0
-offset_right = 390.0
-offset_bottom = 226.0
-texture_normal = ExtResource("6_2nypq")
+[node name="BtnLayer" type="CanvasLayer" parent="."]
+
+[node name="Continue" type="TextureButton" parent="BtnLayer"]
+offset_left = 291.0
+offset_top = 145.0
+offset_right = 355.0
+offset_bottom = 209.0
+texture_normal = ExtResource("5_ucygd")
 stretch_mode = 0
 
-[connection signal="mouse_entered" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_exited"]
+[node name="Help" type="TextureButton" parent="BtnLayer"]
+offset_left = 191.0
+offset_top = 204.0
+offset_right = 255.0
+offset_bottom = 268.0
+texture_normal = ExtResource("6_mipys")
+stretch_mode = 0
+
+[node name="Settings" type="TextureButton" parent="BtnLayer"]
+offset_left = 391.0
+offset_top = 204.0
+offset_right = 455.0
+offset_bottom = 268.0
+texture_normal = ExtResource("7_8a8k8")
+stretch_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="mouse_entered" from="BtnLayer/Continue" to="." method="_on_continue_mouse_entered"]
+[connection signal="mouse_exited" from="BtnLayer/Continue" to="." method="_on_continue_mouse_exited"]
+[connection signal="mouse_entered" from="BtnLayer/Help" to="." method="_on_help_mouse_entered"]
+[connection signal="mouse_exited" from="BtnLayer/Help" to="." method="_on_help_mouse_exited"]
+[connection signal="mouse_entered" from="BtnLayer/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="BtnLayer/Settings" to="." method="_on_settings_mouse_exited"]

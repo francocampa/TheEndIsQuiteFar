@@ -4,6 +4,7 @@ static var menuScene:PackedScene = load("res://scenes/MainMenu.tscn")
 static var gameScene:PackedScene = load("res://scenes/level.tscn")
 static var gameOverScene:PackedScene = load("res://scenes/GameOver.tscn")
 static var gameWonScene:PackedScene = load("res://scenes/WinScreen.tscn")
+static var tutorialScene:PackedScene = load("res://scenes/Tutorial.tscn")
 
 static var lastDay:int = 0;
 static var dayRecords:Array[int] = [];
@@ -47,3 +48,16 @@ static func ended_run(day:int,money:int):
 		if(money > moneyRecords[i]):
 			moneyRecords.insert(i,money);
 	
+	
+static var levels:Array[PackedScene] = [
+	load("res://resources/platformLayout/1.tscn"),
+	load("res://resources/platformLayout/2.tscn"),
+	load("res://resources/platformLayout/3.tscn"),
+];
+
+static var volume:float = 100;
+static var musicPlayer:AudioStreamPlayer = AudioStreamPlayer.new();
+static func startMusic():
+	musicPlayer.stream = load("res://sounds/Night of the Streets.mp3");
+	musicPlayer.volume_linear = 1.0;
+	musicPlayer.play();

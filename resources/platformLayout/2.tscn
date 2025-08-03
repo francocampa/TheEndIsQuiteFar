@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx1ux1ekh6ufb"]
+
+[ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="1_ichkt"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(90, 297)
+platform_size = Vector2(32, 16)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(174, 274)
+platform_size = Vector2(32, 16)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(264, 300)
+platform_size = Vector2(32, 16)
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(366, 271)
+platform_size = Vector2(64, 16)
+
+[node name="Platform5" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(462, 304)
+platform_size = Vector2(32, 16)
+
+[node name="Platform6" parent="Platforms" instance=ExtResource("1_ichkt")]
+position = Vector2(561, 271)
+platform_size = Vector2(32, 16)
+
+[node name="Elements" type="Node2D" parent="."]
