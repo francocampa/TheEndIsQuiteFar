@@ -164,18 +164,17 @@ position = Vector2(478, 783)
 
 [node name="ItemCards" type="Node2D" parent="CanvasLayer2"]
 unique_name_in_owner = true
-visible = false
 
 [node name="ItemCard1" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
 position = Vector2(258, 305)
 item = SubResource("Resource_arp2o")
 
 [node name="ItemCard2" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
-position = Vector2(323, 301)
+position = Vector2(327, 305)
 item = SubResource("Resource_ux5qa")
 
 [node name="ItemCard3" parent="CanvasLayer2/ItemCards" instance=ExtResource("7_klq6b")]
-position = Vector2(391, 307)
+position = Vector2(399, 305)
 item = SubResource("Resource_82cfe")
 
 [node name="Continue" type="TextureButton" parent="CanvasLayer2"]
@@ -202,6 +201,16 @@ collision_mask = 128
 position = Vector2(360, -5)
 shape = SubResource("RectangleShape2D_gunhw")
 
+[node name="RespawnTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="GameOverTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="mouse_entered" from="CanvasLayer2/Continue" to="." method="_on_continue_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer2/Continue" to="." method="_on_continue_mouse_exited"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="timeout" from="RespawnTime" to="." method="_on_respawn_time_timeout"]
+[connection signal="timeout" from="GameOverTime" to="." method="_on_game_over_time_timeout"]

@@ -12,6 +12,7 @@ var timeLeft:float = 30;
 @export var xAcc:float = 50;
 @export var xFricFactor:float = 0.5;
 @export var jumpHeight:float = -320;
+@export var springjumpHeight:float = -120;
 @export var minVel:Vector2 = Vector2(-1000,-1000);
 @export var maxVel:Vector2 = Vector2(1000,1000);
 @export var walkSpeed:float = 200;
@@ -35,6 +36,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if(state == PlayerStates.Paused):
 		return;
+	handle_sprite_squish();
 	
 	update_hud();
 	
@@ -56,6 +58,7 @@ func _physics_process(delta: float) -> void:
 		if(isOnFloor):
 			if(state == PlayerStates.Falling):
 				jumps = 1;
+				$Audios/FloorHit.play();
 			state = PlayerStates.Flooring;
 			vel.y = 0;
 			var collission:KinematicCollision2D = get_slide_collision(0);
@@ -69,17 +72,16 @@ func _physics_process(delta: float) -> void:
 	vel = vel.clamp(minVel,maxVel);
 	velocity = vel;
 	
-	handle_sprite_squish();
 	
 	move_and_slide();
 
 func start_jump():
 	jumps-=1;
 	if(state == PlayerStates.Hanging):
-		if(Input.is_action_pressed("Left") && lastDir == -1):
+		if(Input.is_action_pressed("Left") && lastDir == 1):
 			vel.x = jumpHeight*1.2;
 			vel.y = jumpHeight/1.5;
-		else: if(Input.is_action_pressed("Right") && lastDir == 1):
+		else: if(Input.is_action_pressed("Right") && lastDir == -1):
 			vel.x = -jumpHeight*1.2;
 			vel.y = jumpHeight/1.5;
 		else:
@@ -132,6 +134,10 @@ func handle_jump() -> void:
 
 func handle_hang():
 	vel = Vector2();
+	if(Input.is_action_pressed("Right") && lastDir == -1):
+		$Animations.scale.x = 1;
+	if(Input.is_action_pressed("Left") && lastDir == 1):
+		$Animations.scale.x = -1;
 	handle_jump();
 
 func handle_crouch():
@@ -158,7 +164,7 @@ func try_to_hang(side:Area2D) -> void:
 	
 	jumps = 1;
 	state = PlayerStates.Hanging;
-	lastDir = -1 if %Right == side else 1;
+	lastDir = 1 if %Right == side else -1;
 
 func _on_left_area_entered(area: Area2D) -> void:
 	try_to_hang(%Left);
@@ -192,11 +198,18 @@ func handle_sprite_squish()->void:
 				$Animations.play("jump")
 	
 func rip():
+	if(state == PlayerStates.Paused):
+		return;
 	lives-=1;
 	update_hud();
+	$Audios/Death.play()
+	$Bloooood.emitting = true;
+	$BodyParts.emitting = true;
+	state = PlayerStates.Paused;
+	$Animations.visible = false;
 
 func update_hud():
-	$Hud/LivesText.text = "x " + str(lives);
+	$Hud/LivesText.text = "x " + str(max(lives,0));
 	$Hud/Timer.text = str(%Life.time_left).substr(0,5);
 	$Hud/Day.text = Global.getDayText(day);
 	$Hud/Money.text = str(money);
@@ -208,8 +221,10 @@ func pause():
 func unpause():
 	state = PlayerStates.Flooring;
 	%Life.paused = false;
+	crouching = false;
+	hangFall = false;
 	%Life.start(timeLeft);
-
+	$Animations.visible = true;
 func beat_level():
 	day += 1;
 	money += daylyIncome;
@@ -227,4 +242,12 @@ func add_income(obstacleName:String):
 		"Blob":
 			daylyIncome+=2000;
 			
-	
+
+func add_live():
+	lives+=1;
+
+func spring_jump():
+	state = PlayerStates.Jumping;
+	vel.y = springjumpHeight*10;
+	if(%JumpBuffer.time_left > 0):
+		vel.y += jumpHeight + springjumpHeight;

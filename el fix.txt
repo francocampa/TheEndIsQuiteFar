@@ -1,0 +1,8 @@
+var canvas = document.getElementsByTagName("canvas")[0];
+			if (canvas) {
+				canvas.style.width = "1280px";
+				canvas.style.height = "680px";
+				canvas.width = 1280;
+				canvas.height = 680;
+				canvas.style.imageRendering = "pixelated";
+			}

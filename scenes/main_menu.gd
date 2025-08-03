@@ -8,6 +8,19 @@ var btnHoverIndex = 0;
 
 func _ready() -> void:
 	get_window().set_size(Vector2i(1280,680));
+	if(Global.dayRecords.size() == 0):
+		$CanvasLayer/BestRuns.text = "None yet...";
+	else:
+		var text:String = "";
+		var lastMoney:int = -1;
+		var lastDay:int = -1;
+		for i in min(Global.dayRecords.size(),8):
+			if(lastMoney == Global.moneyRecords[i] && lastDay == Global.dayRecords[i]):
+				continue;
+			lastMoney =Global.moneyRecords[i];
+			lastDay = Global.dayRecords[i];
+			text+= "$" + str(lastMoney) +" in "+ Global.getDayText(lastDay)+"\n";
+		$CanvasLayer/BestRuns.text = text;
 
 func _process(delta: float) -> void:
 	if(hover):

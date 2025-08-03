@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdhhcj4rraj34"]
+[gd_scene load_steps=5 format=3 uid="uid://cdhhcj4rraj34"]
 
 [ext_resource type="Script" uid="uid://dtchfep6nj4wn" path="res://item_card.gd" id="1_ce1kl"]
 [ext_resource type="Texture2D" uid="uid://ysx2ysy2rkvb" path="res://sprites/SquareBlock.png" id="2_4lcok"]
+[ext_resource type="Texture2D" uid="uid://deqqxc4hi138p" path="res://sprites/Panel.png" id="2_ltbao"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4lcok"]
 size = Vector2(50, 50)
@@ -9,14 +10,14 @@ size = Vector2(50, 50)
 [node name="ItemCard" type="Node2D"]
 script = ExtResource("1_ce1kl")
 
-[node name="Card" type="ColorRect" parent="."]
+[node name="Carddd" type="ColorRect" parent="."]
+visible = false
 offset_left = -25.0
 offset_top = -25.0
 offset_right = 25.0
 offset_bottom = 25.0
 
-[node name="Cardd" type="NinePatchRect" parent="."]
-visible = false
+[node name="Card" type="NinePatchRect" parent="."]
 self_modulate = Color(1, 0.172549, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2.5, 2.5)
 pivot_offset = Vector2(20, 20)
-texture = ExtResource("2_4lcok")
+texture = ExtResource("2_ltbao")
 region_rect = Rect2(0, 0, 32, 32)
 patch_margin_left = 8
 patch_margin_top = 8

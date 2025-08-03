@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b110lpip5jbxa"]
+[gd_scene load_steps=13 format=3 uid="uid://b110lpip5jbxa"]
 
 [ext_resource type="Texture2D" uid="uid://bkc8libgjrnb6" path="res://sprites/Blob.png" id="1_706a1"]
 [ext_resource type="Script" uid="uid://bejjadae2pw6n" path="res://scenes/blob.gd" id="1_gpcks"]
+[ext_resource type="AudioStream" uid="uid://bg3u1yg6gm4yo" path="res://sounds/blob.mp3" id="3_26p4n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpcks"]
 atlas = ExtResource("1_706a1")
@@ -52,6 +53,9 @@ size = Vector2(10, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jlw6w"]
 size = Vector2(10, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26p4n"]
+size = Vector2(5, 14)
+
 [node name="Blob" type="RigidBody2D"]
 collision_layer = 0
 gravity_scale = 0.0
@@ -82,5 +86,38 @@ collision_mask = 128
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_w70e3")
 
+[node name="Sound" type="Timer" parent="."]
+wait_time = 11.811
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_26p4n")
+volume_db = -8.432
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(-8, 1)
+shape = SubResource("RectangleShape2D_26p4n")
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(9, 1)
+shape = SubResource("RectangleShape2D_26p4n")
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_jlw6w")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="Sound" to="." method="_on_sound_timeout"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

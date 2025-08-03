@@ -51,9 +51,23 @@ func beat_level() -> void:
 		
 	editing = true;
 	$CanvasLayer/GRID.visible = true;
-	var itemCards:Array[Node] = %ItemCards.get_children(); 
+	var itemCards:Array[Node] = %ItemCards.get_children();
+	
+	var enemiesNo:int = rng.randi()%5;
+	if(enemiesNo ==0):
+		enemiesNo = 1;
+	else: if enemiesNo == 4:
+		enemiesNo = 3;
+	else:
+		enemiesNo = 2;
+	
 	for iC in itemCards:
-		iC.set_item(ItemResource.allItems[rng.randi()%ItemResource.allItems.size()]);
+		if(enemiesNo > 0):
+			iC.set_item(ItemResource.enemies[rng.randi()%ItemResource.enemies.size()]);
+			enemiesNo -= 1;
+		else:
+			iC.set_item(ItemResource.noEnemies[rng.randi()%ItemResource.noEnemies.size()]);
+			
 		iC.visible = true;
 	%ItemCards.visible = true;
 	
@@ -68,9 +82,14 @@ func beat_level() -> void:
 func rip_bro() -> void:
 	player.rip();
 	if(player.lives < 0):
-		Global.ended_run(player.day, player.money);
-		get_tree().change_scene_to_packed(Global.gameOverScene);
-	start_level();
+		$GameOverTime.start();
+	else:
+		$RespawnTime.start();
+	
+	var elements:Array[Node] = $Elements.get_children(); 
+	for e in elements:
+		if(e.has_method("pause")):
+			e.pause();
 
 func select_item(itemCard) -> void:
 	var itemCards:Array[Node] = %ItemCards.get_children(); 
@@ -122,6 +141,8 @@ func place_element(itemRes:ItemResource,pos:Vector2,dir:int):
 
 func get_platforms() -> Array[Node]:
 	return $Platforms.get_children();
+func get_elements() -> Array[Node]:
+	return $Elements.get_children();
 	
 func set_platform_size(size) ->void:
 	self.platformSize = size;
@@ -143,3 +164,15 @@ func _on_continue_mouse_exited() -> void:
 
 func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	rip_bro();
+
+
+func _on_respawn_time_timeout() -> void:
+	start_level();
+
+
+func _on_game_over_time_timeout() -> void:
+	Global.ended_run(player.day, player.money);
+	get_tree().change_scene_to_packed(Global.gameOverScene);
+
+func add_live():
+	player.add_live();

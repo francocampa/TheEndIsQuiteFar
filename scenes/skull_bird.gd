@@ -14,6 +14,7 @@ func init(initialPos:Vector2) -> void:
 
 func reset():
 	position = initialPos;
+	$Sound.start();
 
 func pause():
 	paused = true;
@@ -36,3 +37,20 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	level.rip_bro();
+	
+func imabird():
+	pass;
+
+
+func _on_sound_timeout() -> void:
+	$AudioStreamPlayer.play();
+	$Sound.wait_time = level.rng.randf_range(7.0,20.0);
+	$Sound.start();
+
+
+func _on_right_body_entered(body: Node2D) -> void:
+	dir = -1;
+
+
+func _on_left_body_entered(body: Node2D) -> void:
+	dir = 1;

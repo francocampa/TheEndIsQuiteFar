@@ -1,14 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://dnmhnkit2v13f"]
+[gd_scene load_steps=21 format=3 uid="uid://dnmhnkit2v13f"]
 
 [ext_resource type="Script" uid="uid://c6ktiaskfr7fw" path="res://resources/platformLayout/tutorial.gd" id="1_a6c5q"]
 [ext_resource type="Texture2D" uid="uid://cdm4iwpdqcxjc" path="res://sprites/Skyline.png" id="1_icgvo"]
 [ext_resource type="Shader" uid="uid://dm8pa1vwob113" path="res://effects/crt.gdshader" id="2_w5ait"]
+[ext_resource type="Script" uid="uid://tb8rdk2jeqli" path="res://resources/platformLayout/tutoLevel.gd" id="3_5q1y8"]
 [ext_resource type="Texture2D" uid="uid://bt2ld5dl8anrg" path="res://sprites/ExitButton.png" id="3_e2jow"]
 [ext_resource type="PackedScene" uid="uid://c82alav3imxhd" path="res://scenes/platform.tscn" id="4_ugmc8"]
 [ext_resource type="PackedScene" uid="uid://dqkopyta44dsp" path="res://scenes/Hang.tscn" id="5_a6c5q"]
 [ext_resource type="PackedScene" uid="uid://biyuguwhlm3hr" path="res://scenes/Player.tscn" id="6_n73gx"]
 [ext_resource type="Texture2D" uid="uid://j3iferartr5b" path="res://sprites/PlayerIcon.png" id="7_5q1y8"]
 [ext_resource type="PackedScene" uid="uid://b110lpip5jbxa" path="res://scenes/Blob.tscn" id="7_n73gx"]
+[ext_resource type="PackedScene" uid="uid://bnogw3yiuw7iv" path="res://scenes/hearth.tscn" id="10_w7ci7"]
+[ext_resource type="Texture2D" uid="uid://dw1mofaga1rgj" path="res://sprites/ArroyKey.png" id="11_gjxf7"]
+[ext_resource type="PackedScene" uid="uid://vjttmjphdfby" path="res://scenes/SkullBird.tscn" id="11_w7ci7"]
+[ext_resource type="Texture2D" uid="uid://ufhjefjj8b57" path="res://sprites/EmptyKey.png" id="12_12b6y"]
+[ext_resource type="FontFile" uid="uid://dowqoaa3v8g66" path="res://fonts/Web437_Acer_VGA_8x8.woff" id="13_6l5p0"]
+[ext_resource type="Texture2D" uid="uid://d3gb30dh8dux2" path="res://sprites/SpaceBar.png" id="14_w7ci7"]
 
 [sub_resource type="Gradient" id="Gradient_gijjb"]
 interpolation_mode = 2
@@ -36,21 +43,24 @@ size = Vector2(1369, 20)
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_a6c5q")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="Level" type="Node2D" parent="."]
+script = ExtResource("3_5q1y8")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Level"]
 color = Color(0.32859, 0.267368, 0.430063, 1)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+[node name="ColorRect" type="ColorRect" parent="Level/CanvasModulate"]
 offset_right = 640.0
 offset_bottom = 340.0
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="Level"]
 position = Vector2(371, -32)
 scale = Vector2(22.8269, 15.1794)
 energy = 1.46
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_c3vsi")
 
-[node name="Skyline" type="TextureRect" parent="."]
+[node name="Skyline" type="TextureRect" parent="Level"]
 modulate = Color(1, 1, 1, 0.466667)
 offset_left = 115.0
 offset_top = 95.0
@@ -59,9 +69,9 @@ offset_bottom = 340.0
 texture = ExtResource("1_icgvo")
 expand_mode = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="Level"]
 
-[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+[node name="CRT" type="ColorRect" parent="Level/CanvasLayer"]
 material = SubResource("ShaderMaterial_ugmc8")
 offset_left = 2.0
 offset_top = 1.0
@@ -69,7 +79,7 @@ offset_right = 642.0
 offset_bottom = 341.0
 mouse_filter = 1
 
-[node name="Continue" type="TextureButton" parent="CanvasLayer"]
+[node name="Continue" type="TextureButton" parent="Level/CanvasLayer"]
 offset_left = 266.0
 offset_top = 24.0
 offset_right = 330.0
@@ -77,31 +87,45 @@ offset_bottom = 88.0
 texture_normal = ExtResource("3_e2jow")
 stretch_mode = 0
 
-[node name="Platforms" type="Node2D" parent="."]
+[node name="Platforms" type="Node2D" parent="Level"]
 
-[node name="Platform" parent="Platforms" instance=ExtResource("4_ugmc8")]
+[node name="Platform" parent="Level/Platforms" instance=ExtResource("4_ugmc8")]
 position = Vector2(139, 320)
 platform_size = Vector2(208, 16)
 
-[node name="Platform2" parent="Platforms" instance=ExtResource("4_ugmc8")]
+[node name="Platform2" parent="Level/Platforms" instance=ExtResource("4_ugmc8")]
 position = Vector2(462, 319)
 platform_size = Vector2(208, 16)
 
-[node name="Platform3" parent="Platforms" instance=ExtResource("4_ugmc8")]
+[node name="Platform3" parent="Level/Platforms" instance=ExtResource("4_ugmc8")]
 position = Vector2(300, 263)
 platform_size = Vector2(208, 48)
 
-[node name="Elements" type="Node2D" parent="."]
+[node name="Elements" type="Node2D" parent="Level"]
 
-[node name="Hang" parent="Elements" instance=ExtResource("5_a6c5q")]
+[node name="Hang" parent="Level/Elements" instance=ExtResource("5_a6c5q")]
 position = Vector2(412, 264)
 
-[node name="Blob" parent="Elements" instance=ExtResource("7_n73gx")]
+[node name="Blob" parent="Level/Elements" instance=ExtResource("7_n73gx")]
 position = Vector2(300, 247)
 
-[node name="Player" parent="." instance=ExtResource("6_n73gx")]
+[node name="Hearth" parent="Level/Elements" instance=ExtResource("10_w7ci7")]
+position = Vector2(516, 250)
+
+[node name="SkullBird" parent="Level/Elements" instance=ExtResource("11_w7ci7")]
+position = Vector2(557, 249)
+
+[node name="Player" parent="Level" instance=ExtResource("6_n73gx")]
 position = Vector2(62, 303)
 hideHud = true
+
+[node name="Area2D" type="Area2D" parent="Level"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Area2D"]
+position = Vector2(324.5, 355)
+shape = SubResource("RectangleShape2D_n73gx")
 
 [node name="Tutorials" type="Node2D" parent="."]
 
@@ -154,6 +178,16 @@ offset_top = 306.0
 offset_right = 250.0
 offset_bottom = 308.0
 rotation = 0.624385
+
+[node name="ArroyKey2" type="Sprite2D" parent="Tutorials/LedgeTuto"]
+position = Vector2(210, 292)
+scale = Vector2(1, -1)
+texture = ExtResource("11_gjxf7")
+
+[node name="ArroyKey3" type="Sprite2D" parent="Tutorials/LedgeTuto"]
+position = Vector2(230, 292)
+rotation = 1.5708
+texture = ExtResource("11_gjxf7")
 
 [node name="HangTuto" type="Node2D" parent="Tutorials"]
 modulate = Color(1, 1, 1, 0.376471)
@@ -257,14 +291,147 @@ offset_right = 269.0
 offset_bottom = 313.0
 rotation = 2.76171
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 128
+[node name="ArroyKey" type="Sprite2D" parent="Tutorials/LedgeTuto2"]
+position = Vector2(299, 293)
+texture = ExtResource("11_gjxf7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(324.5, 355)
-shape = SubResource("RectangleShape2D_n73gx")
+[node name="ArroyKey3" type="Sprite2D" parent="Tutorials/LedgeTuto2"]
+position = Vector2(281, 293)
+rotation = 1.5708
+texture = ExtResource("11_gjxf7")
 
-[connection signal="mouse_entered" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Continue" to="." method="_on_continue_mouse_exited"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="KeyLayouts" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="KeyLayouts"]
+modulate = Color(0.374139, 0.374139, 0.374139, 1)
+offset_left = 119.0
+offset_top = 156.0
+offset_right = 123.0
+offset_bottom = 224.0
+rotation = 0.771003
+
+[node name="Arrows" type="Node2D" parent="KeyLayouts"]
+position = Vector2(8, 108)
+
+[node name="ArroyKey" type="Sprite2D" parent="KeyLayouts/Arrows"]
+position = Vector2(56, 45)
+texture = ExtResource("11_gjxf7")
+
+[node name="ArroyKey2" type="Sprite2D" parent="KeyLayouts/Arrows"]
+position = Vector2(56, 64)
+scale = Vector2(1, -1)
+texture = ExtResource("11_gjxf7")
+
+[node name="ArroyKey3" type="Sprite2D" parent="KeyLayouts/Arrows"]
+position = Vector2(76, 64)
+rotation = 1.5708
+texture = ExtResource("11_gjxf7")
+
+[node name="ArroyKey4" type="Sprite2D" parent="KeyLayouts/Arrows"]
+position = Vector2(36, 64)
+rotation = -1.5708
+texture = ExtResource("11_gjxf7")
+
+[node name="WASD" type="Node2D" parent="KeyLayouts"]
+position = Vector2(65, 140)
+
+[node name="ArroyKey" type="Sprite2D" parent="KeyLayouts/WASD"]
+position = Vector2(56, 45)
+texture = ExtResource("12_12b6y")
+
+[node name="ArroyKey2" type="Sprite2D" parent="KeyLayouts/WASD"]
+position = Vector2(56, 64)
+scale = Vector2(1, -1)
+texture = ExtResource("12_12b6y")
+
+[node name="ArroyKey3" type="Sprite2D" parent="KeyLayouts/WASD"]
+position = Vector2(76, 64)
+rotation = 1.5708
+texture = ExtResource("12_12b6y")
+
+[node name="ArroyKey4" type="Sprite2D" parent="KeyLayouts/WASD"]
+position = Vector2(36, 64)
+rotation = -1.5708
+texture = ExtResource("12_12b6y")
+
+[node name="w" type="RichTextLabel" parent="KeyLayouts/WASD"]
+modulate = Color(0.462745, 0.258824, 0.541176, 1)
+offset_left = 51.0
+offset_top = 41.0
+offset_right = 62.0
+offset_bottom = 51.0
+theme_override_fonts/normal_font = ExtResource("13_6l5p0")
+theme_override_font_sizes/normal_font_size = 8
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="w2" type="RichTextLabel" parent="KeyLayouts/WASD"]
+modulate = Color(0.462745, 0.258824, 0.541176, 1)
+offset_left = 51.0
+offset_top = 60.0
+offset_right = 62.0
+offset_bottom = 70.0
+theme_override_fonts/normal_font = ExtResource("13_6l5p0")
+theme_override_font_sizes/normal_font_size = 8
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="w3" type="RichTextLabel" parent="KeyLayouts/WASD"]
+modulate = Color(0.462745, 0.258824, 0.541176, 1)
+offset_left = 72.0
+offset_top = 60.0
+offset_right = 83.0
+offset_bottom = 70.0
+theme_override_fonts/normal_font = ExtResource("13_6l5p0")
+theme_override_font_sizes/normal_font_size = 8
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="w4" type="RichTextLabel" parent="KeyLayouts/WASD"]
+modulate = Color(0.462745, 0.258824, 0.541176, 1)
+offset_left = 31.0
+offset_top = 60.0
+offset_right = 42.0
+offset_bottom = 70.0
+theme_override_fonts/normal_font = ExtResource("13_6l5p0")
+theme_override_font_sizes/normal_font_size = 8
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpecialKeys" type="Node2D" parent="KeyLayouts"]
+
+[node name="EmptyKey" type="Sprite2D" parent="KeyLayouts/SpecialKeys"]
+position = Vector2(62, 238)
+scale = Vector2(2, 1)
+texture = ExtResource("12_12b6y")
+
+[node name="SpaceBar" type="Sprite2D" parent="KeyLayouts/SpecialKeys"]
+position = Vector2(100, 238)
+scale = Vector2(2, 1)
+texture = ExtResource("14_w7ci7")
+
+[node name="w2" type="RichTextLabel" parent="KeyLayouts/SpecialKeys"]
+modulate = Color(0.462745, 0.258824, 0.541176, 1)
+offset_left = 44.0
+offset_top = 234.0
+offset_right = 83.0
+offset_bottom = 242.0
+theme_override_fonts/normal_font = ExtResource("13_6l5p0")
+theme_override_font_sizes/normal_font_size = 8
+text = "Ctrl"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpaceBar2" type="Sprite2D" parent="KeyLayouts/SpecialKeys"]
+position = Vector2(132, 238)
+rotation = 3.14159
+scale = Vector2(2, -1)
+texture = ExtResource("14_w7ci7")
+
+[connection signal="mouse_entered" from="Level/CanvasLayer/Continue" to="Level" method="_on_continue_mouse_entered"]
+[connection signal="mouse_exited" from="Level/CanvasLayer/Continue" to="Level" method="_on_continue_mouse_exited"]
+[connection signal="body_entered" from="Level/Area2D" to="Level" method="_on_area_2d_body_entered"]

@@ -5,6 +5,8 @@ enum Type{ Start, End  };
 @export var type:Type = Type.Start;
 @onready var level:Node2D = get_parent();
 
+var finishing:bool = false;
+
 func _ready():
 	if(type == Type.Start):
 		$Sprite.modulate = Color("#f9f900");

@@ -18,7 +18,6 @@ func _process(delta: float) -> void:
 	
 	var mousePos:Vector2 = get_global_mouse_position();
 	self.position = mousePos;
-	print(position);
 	if(itemRes.clipToWall):
 		handle_clip_to_wall();
 	if(itemRes.clipToFloor):
@@ -29,8 +28,11 @@ func _process(delta: float) -> void:
 	
 	var invalidReason:String = validate_placement();
 	if(invalidReason != ""):
+		$Preview.modulate = Color("ff0a3c");
 		$CanvasLayer/ErrorMessage.text = invalidReason;
 		return;
+	
+	$Preview.modulate = Color("ffffff");
 	$CanvasLayer/ErrorMessage.text = "";
 	if(Input.is_action_just_pressed("LeftClick")):
 		working = false;
@@ -145,6 +147,9 @@ func handle_clip_to_floor():
 		self.dir = -1;
 
 func validate_placement() -> String:
+	var t_size:Vector2 = $Preview.get_size();
+	var pos:Vector2 = position; #the offset was used before wtf is this shit
+	var thisRect:Rect2 = Rect2(pos,t_size);
 	if(position.x < 0 || position.x > 640):
 		return "Out of range";
 	if(position.y < 0 || position.y > 340):
@@ -152,18 +157,48 @@ func validate_placement() -> String:
 	if(itemRes.clipToFloor):
 		if(dir < 0):
 			return "Must be in the floor"
-		else:
-			return "";
+
 	if(itemRes.clipToWall):
 		if(dir < 0):
 			return "Must be in a wall"
-		else:
-			return "";
 	
-	if(itemRes.name == "Platform"):
-		if(position.x < 20 || position.x + $Preview.size.x > 640):
-			return "Out of range";
+	var elements:Array[Node] = level.get_elements();
+	for el in elements:
+		var e_size:Vector2 = Vector2(16,16); #Don't have time
+		var e_pos:Vector2 = el.position - e_size/2;
+		var eRect:Rect2 = Rect2(e_pos,e_size);
+		if(thisRect.intersects(eRect)):
+			return "Can't overlap elements!"
+	
+	match itemRes.name:
+		"Platform":
+			if(position.x < 20 || position.x + $Preview.size.x > 640):
+				return "Out of range";
 			
+			var platforms:Array[Node] = level.get_platforms();
+			for p in platforms:
+				var p_size:Vector2 = p.platform_size;
+				var p_pos:Vector2 = p.position - p_size/2;
+				var pRect:Rect2 = Rect2(p_pos,p_size);
+				if(thisRect.intersects(pRect)):
+					return "Can't overlap platforms!"
+		"SkullBird":
+			var birdsInLine:int = 0;
+			for el in elements:
+				if(el.has_method("imabird")): #peak coding
+					if abs(el.position.y - (pos.y + t_size.y/2)) < 8:
+						birdsInLine+=1;
+			if(birdsInLine >= 2):
+				return "Too many birds in that height"
+		"SkullBird":
+			var blobsInLine:int = 0;
+			for el in elements:
+				if(el.has_method("imablob")): #peak coding
+					if abs(el.position.y - (pos.y + t_size.y/2)) < 8:
+						blobsInLine+=1;
+			if(blobsInLine >= 5):
+				return "Too many blobs in that platform"
+
 	return "";
 	
 var angle:float = 0;

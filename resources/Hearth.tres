@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://c2tc30djnktk3"]
+
+[ext_resource type="PackedScene" uid="uid://bnogw3yiuw7iv" path="res://scenes/hearth.tscn" id="1_g42xk"]
+[ext_resource type="Script" uid="uid://bspdwewos6fov" path="res://resources/ItemResource.gd" id="1_ycgen"]
+[ext_resource type="Texture2D" uid="uid://b3asafi2s8r35" path="res://sprites/LivesIcon.png" id="3_1jy3p"]
+
+[resource]
+script = ExtResource("1_ycgen")
+texture = ExtResource("3_1jy3p")
+name = "Hearth"
+type = 2
+scene = ExtResource("1_g42xk")
+clipToWall = false
+clipToFloor = false
+metadata/_custom_type_script = "uid://bspdwewos6fov"

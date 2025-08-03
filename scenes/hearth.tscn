@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnogw3yiuw7iv"]
+
+[ext_resource type="Script" uid="uid://ckbvjuiy6ifv2" path="res://Hearth.gd" id="1_y3xvl"]
+[ext_resource type="Texture2D" uid="uid://b3asafi2s8r35" path="res://sprites/LivesIcon.png" id="2_p7pff"]
+[ext_resource type="Texture2D" uid="uid://dfapnxu5dccib" path="res://sprites/Blood.png" id="3_p7pff"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mc0i5"]
+radius = 6.0
+height = 14.0
+
+[node name="Hearth" type="Node2D"]
+script = ExtResource("1_y3xvl")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_mc0i5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p7pff")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+texture = ExtResource("3_p7pff")
+lifetime = 0.2
+one_shot = true
+speed_scale = 0.9
+explosiveness = 0.4
+randomness = 1.0
+lifetime_randomness = 0.86
+emission_shape = 1
+emission_sphere_radius = 7.46
+direction = Vector2(0, -1)
+spread = 85.0
+initial_velocity_min = 202.02
+initial_velocity_max = 202.02
+color = Color(0.685208, 0.36321, 0.903502, 1)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]

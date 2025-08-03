@@ -56,6 +56,25 @@ expand_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="BestRunsTitle" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 450.0
+offset_top = 113.0
+offset_right = 618.0
+offset_bottom = 138.0
+theme_override_fonts/normal_font = ExtResource("5_7la6k")
+text = "Best runs:"
+
+[node name="BestRuns" type="RichTextLabel" parent="CanvasLayer"]
+modulate = Color(0.117647, 0.117647, 0.117647, 1)
+offset_left = 448.0
+offset_top = 138.0
+offset_right = 616.0
+offset_bottom = 292.0
+theme_override_fonts/normal_font = ExtResource("5_7la6k")
+theme_override_font_sizes/normal_font_size = 8
+text = "None yet..."
+
 [node name="CRT" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_l4mxc")
 offset_right = 640.0
@@ -79,21 +98,22 @@ vertical_alignment = 1
 
 [node name="Continue" type="TextureButton" parent="BtnLayer"]
 offset_left = 291.0
-offset_top = 145.0
+offset_top = 123.0
 offset_right = 355.0
-offset_bottom = 209.0
+offset_bottom = 187.0
 texture_normal = ExtResource("5_ucygd")
 stretch_mode = 0
 
 [node name="Help" type="TextureButton" parent="BtnLayer"]
-offset_left = 191.0
-offset_top = 204.0
-offset_right = 255.0
-offset_bottom = 268.0
+offset_left = 292.0
+offset_top = 214.0
+offset_right = 356.0
+offset_bottom = 278.0
 texture_normal = ExtResource("6_mipys")
 stretch_mode = 0
 
 [node name="Settings" type="TextureButton" parent="BtnLayer"]
+visible = false
 offset_left = 391.0
 offset_top = 204.0
 offset_right = 455.0

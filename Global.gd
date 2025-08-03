@@ -36,23 +36,20 @@ static func getDayText(day:int) -> String:
 static func ended_run(day:int,money:int):
 	lastDay = day;
 	lastMoney = money;
-	for i in dayRecords.size()+1:
-		if(i == dayRecords.size()):
-			dayRecords.append(day);
-		if(day > dayRecords[i]):
-			dayRecords.insert(i,day);
-			
 	for i in moneyRecords.size()+1:
 		if(i == moneyRecords.size()):
 			moneyRecords.append(money);
-		if(money > moneyRecords[i]):
+			dayRecords.append(day);
+		else: if(money > moneyRecords[i]):
 			moneyRecords.insert(i,money);
+			dayRecords.insert(i,day);
 	
 	
 static var levels:Array[PackedScene] = [
 	load("res://resources/platformLayout/1.tscn"),
 	load("res://resources/platformLayout/2.tscn"),
 	load("res://resources/platformLayout/3.tscn"),
+	load("res://scenes/4.tscn"),
 ];
 
 static var volume:float = 100;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://biyuguwhlm3hr"]
+[gd_scene load_steps=31 format=3 uid="uid://biyuguwhlm3hr"]
 
 [ext_resource type="Script" uid="uid://r0w2vtp168hy" path="res://scenes/player.gd" id="1_v6fml"]
 [ext_resource type="Texture2D" uid="uid://oge863ui7awm" path="res://sprites/PlayerIdle.png" id="2_qu4a1"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://c1q4uu7qlm2hb" path="res://sprites/ClockIcon.png" id="8_khinc"]
 [ext_resource type="Texture2D" uid="uid://bt2ld5dl8anrg" path="res://sprites/ExitButton.png" id="10_d3wef"]
 [ext_resource type="Script" uid="uid://dkc0nprggrspl" path="res://scenes/player_exit.gd" id="11_o4126"]
+[ext_resource type="AudioStream" uid="uid://cyubuebq00xmj" path="res://sounds/FloorHit.mp3" id="12_lkdrv"]
+[ext_resource type="AudioStream" uid="uid://b50dk2j8w2cg1" path="res://sounds/death.mp3" id="13_p7iby"]
+[ext_resource type="Texture2D" uid="uid://dfapnxu5dccib" path="res://sprites/Blood.png" id="14_p7iby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
 size = Vector2(14, 9)
@@ -115,6 +118,11 @@ animations = [{
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qu4a1"]
 polygon = PackedVector2Array(-16, 6, -14, -3, -10, -6, -6, -6, -3, -4, 0, 1, 0, 7, -16, 7)
+
+[sub_resource type="Curve" id="Curve_0rnld"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0.0340909, 0.123595), 0.0, 0.0, 0, 0, Vector2(0.994318, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 128
@@ -267,6 +275,57 @@ offset_bottom = 54.0
 texture_normal = ExtResource("10_d3wef")
 stretch_mode = 0
 script = ExtResource("11_o4126")
+
+[node name="Audios" type="Node2D" parent="."]
+
+[node name="FloorHit" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource("12_lkdrv")
+volume_db = -5.622
+
+[node name="Death" type="AudioStreamPlayer" parent="Audios"]
+stream = ExtResource("13_p7iby")
+volume_db = -5.622
+
+[node name="Bloooood" type="CPUParticles2D" parent="."]
+position = Vector2(0, -8)
+emitting = false
+amount = 40
+texture = ExtResource("14_p7iby")
+lifetime = 0.33
+one_shot = true
+explosiveness = 0.58
+lifetime_randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 5.18
+direction = Vector2(0, -1)
+spread = 88.64
+gravity = Vector2(0, 500)
+initial_velocity_min = 20.2
+initial_velocity_max = 171.72
+color = Color(0.597046, 0.109683, 0.60932, 1)
+hue_variation_max = 0.05
+hue_variation_curve = SubResource("Curve_0rnld")
+
+[node name="BodyParts" type="CPUParticles2D" parent="."]
+position = Vector2(0, -8)
+emitting = false
+amount = 10
+texture = ExtResource("14_p7iby")
+lifetime = 0.33
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.48
+lifetime_randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 5.18
+direction = Vector2(0, -1)
+spread = 105.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 50.5
+initial_velocity_max = 60.61
+color = Color(0, 0, 0, 1)
+hue_variation_max = 0.05
+hue_variation_curve = SubResource("Curve_0rnld")
 
 [connection signal="timeout" from="Timers/CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="Timers/Life" to="." method="_on_life_timeout"]
